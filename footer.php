@@ -10,7 +10,14 @@
 <footer class="site-footer" role="contentinfo">
 	<div class="site-footer__grid">
 		<div class="footer-col footer-brand">
-			<div class="footer-brand__title">JIWF Academy</div>
+			<?php $logo_dark_id = (int) jiwf_setting( 'jiwf_logo_dark', 0 ); ?>
+			<?php if ( $logo_dark_id ) : ?>
+				<div class="footer-brand__logo">
+					<?php echo wp_get_attachment_image( $logo_dark_id, 'medium', false, array( 'alt' => 'JIWF Academy', 'loading' => 'lazy' ) ); ?>
+				</div>
+			<?php else : ?>
+				<div class="footer-brand__title">JIWF Academy</div>
+			<?php endif; ?>
 			<p class="footer-brand__statement"><?php echo esc_html( jiwf_brand_statement() ); ?></p>
 		</div>
 

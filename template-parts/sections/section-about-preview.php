@@ -5,15 +5,14 @@
  * @package jiwf-academy
  */
 $lang = jiwf_current_lang();
-$image_url = jiwf_setting( 'jiwf_home_about_image', '' );
 ?>
 <section class="section section--ivory">
 	<div class="container">
 		<div class="split">
 			<div class="image-frame fade-up" style="aspect-ratio: 4/5;">
 				<?php
-				if ( $image_url ) {
-					printf( '<img src="%s" alt="" loading="lazy">', esc_url( $image_url ) );
+				if ( jiwf_has_image( 'jiwf_home_about_image' ) ) {
+					jiwf_image( 'jiwf_home_about_image', 'jiwf-card', array( 'alt' => '', 'loading' => 'lazy' ) );
 				} else {
 					echo '<div style="width:100%;height:100%;background:var(--jiwf-ivory-warm);"></div>';
 				}

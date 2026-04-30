@@ -8,21 +8,9 @@
 $lang = jiwf_current_lang();
 
 $items = array(
-	array(
-		'src'       => jiwf_setting( 'jiwf_home_fuji_image' )      ?: jiwf_asset( 'images/fuji.jpg' ),
-		'label_en'  => 'Stillness',
-		'label_jp'  => '静謐',
-	),
-	array(
-		'src'       => jiwf_setting( 'jiwf_home_about_image' )     ?: jiwf_asset( 'images/learning.jpg' ),
-		'label_en'  => 'Wisdom',
-		'label_jp'  => '智慧',
-	),
-	array(
-		'src'       => jiwf_setting( 'jiwf_home_himalaya_image' )  ?: jiwf_asset( 'images/himalaya.jpg' ),
-		'label_en'  => 'Grandeur',
-		'label_jp'  => '壮大',
-	),
+	array( 'setting' => 'jiwf_home_fuji_image',     'fallback' => 'images/fuji.jpg',     'label_en' => 'Stillness', 'label_jp' => '静謐' ),
+	array( 'setting' => 'jiwf_home_learning_image', 'fallback' => 'images/learning.jpg', 'label_en' => 'Wisdom',    'label_jp' => '智慧' ),
+	array( 'setting' => 'jiwf_home_himalaya_image', 'fallback' => 'images/himalaya.jpg', 'label_en' => 'Grandeur',  'label_jp' => '壮大' ),
 );
 ?>
 <section class="section section--ivory-warm">
@@ -31,7 +19,13 @@ $items = array(
 			<?php foreach ( $items as $item ) : ?>
 				<figure class="story-trio__item fade-up">
 					<div class="story-trio__image">
-						<img src="<?php echo esc_url( $item['src'] ); ?>" alt="<?php echo esc_attr( $item['label_en'] ); ?>" loading="lazy">
+						<?php
+						if ( jiwf_has_image( $item['setting'], $item['fallback'] ) ) {
+							jiwf_image( $item['setting'], 'jiwf-card', array( 'alt' => $item['label_en'], 'loading' => 'lazy' ), $item['fallback'] );
+						} else {
+							echo '<div style="width:100%;height:100%;background:linear-gradient(180deg,var(--jiwf-sky-soft) 0%, var(--jiwf-ivory-warm) 100%);"></div>';
+						}
+						?>
 					</div>
 					<figcaption class="story-trio__label">
 						<em><?php echo esc_html( $item['label_en'] ); ?></em>

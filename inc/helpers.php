@@ -21,24 +21,61 @@ function jiwf_field( $key, $post_id = null ) {
 }
 
 /**
- * Get an image URL by attachment ID with a sensible fallback.
- */
-function jiwf_image_url( $attachment_id, $size = 'large', $fallback = '' ) {
-	$attachment_id = (int) $attachment_id;
-	if ( $attachment_id ) {
-		$src = wp_get_attachment_image_url( $attachment_id, $size );
-		if ( $src ) {
-			return $src;
-		}
-	}
-	return $fallback;
-}
-
-/**
  * Theme mod helpers (Customizer settings).
  */
 function jiwf_setting( $key, $default = '' ) {
 	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Render a Customizer-bound image with srcset/sizes.
+ * Pass a Customizer setting key (which stores an attachment ID).
+ * Falls back to a bundled theme image if the setting is empty.
+ *
+ * @param string $setting_key Customizer setting (attachment ID).
+ * @param string $size        Image size (default 'large').
+ * @param array  $attr        Extra attributes (alt, class, loading, fetchpriority...).
+ * @param string $fallback    Theme-relative path under assets/, e.g. 'images/fuji.jpg'.
+ */
+function jiwf_image( $setting_key, $size = 'large', $attr = array(), $fallback = '' ) {
+	$id = (int) jiwf_setting( $setting_key, 0 );
+	if ( $id ) {
+		echo wp_get_attachment_image( $id, $size, false, $attr );
+		return;
+	}
+	if ( $fallback && file_exists( JIWF_THEME_DIR . '/assets/' . ltrim( $fallback, '/' ) ) ) {
+		$src   = jiwf_asset( $fallback );
+		$attrs = '';
+		foreach ( $attr as $k => $v ) {
+			$attrs .= sprintf( ' %s="%s"', esc_attr( $k ), esc_attr( $v ) );
+		}
+		printf( '<img src="%s"%s>', esc_url( $src ), $attrs );
+	}
+}
+
+/**
+ * URL form of jiwf_image() — useful for inline backgrounds.
+ */
+function jiwf_image_url( $setting_key, $size = 'large', $fallback = '' ) {
+	$id = (int) jiwf_setting( $setting_key, 0 );
+	if ( $id ) {
+		$url = wp_get_attachment_image_url( $id, $size );
+		if ( $url ) return $url;
+	}
+	if ( $fallback && file_exists( JIWF_THEME_DIR . '/assets/' . ltrim( $fallback, '/' ) ) ) {
+		return jiwf_asset( $fallback );
+	}
+	return '';
+}
+
+/**
+ * True if a Customizer image setting has any image to render
+ * (either an uploaded attachment or a bundled fallback file).
+ */
+function jiwf_has_image( $setting_key, $fallback = '' ) {
+	if ( (int) jiwf_setting( $setting_key, 0 ) ) return true;
+	if ( $fallback && file_exists( JIWF_THEME_DIR . '/assets/' . ltrim( $fallback, '/' ) ) ) return true;
+	return false;
 }
 
 /**

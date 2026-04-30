@@ -58,6 +58,9 @@
 	margin-bottom: var(--space-sm);
 }
 
+.footer-brand__logo { margin-bottom: var(--space-sm); }
+.footer-brand__logo img { max-height: 64px; width: auto; }
+
 .footer-brand__statement {
 	font-size: var(--text-sm);
 	line-height: 1.85;

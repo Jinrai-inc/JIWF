@@ -156,6 +156,10 @@
 	text-align: center;
 }
 
+.page-hero--image .page-hero__eyebrow { color: var(--jiwf-gold-light); }
+.page-hero--image .page-hero__title   { color: var(--jiwf-ivory); }
+.page-hero--image .page-hero__lead    { color: rgba(250, 247, 240, 0.85); }
+
 .page-hero__eyebrow {
 	display: block;
 	font-size: var(--text-xs);

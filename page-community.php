@@ -12,11 +12,12 @@ $partner_types = get_terms( array( 'taxonomy' => 'partner_type', 'hide_empty' =>
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow' => __( 'Community', 'jiwf-academy' ),
-	'title'   => $lang === 'ja' ? '共に歩むパートナーたち' : 'Walking together.',
-	'lead'    => $lang === 'ja'
+	'eyebrow'       => __( 'Community', 'jiwf-academy' ),
+	'title'         => $lang === 'ja' ? '共に歩むパートナーたち' : 'Walking together.',
+	'lead'          => $lang === 'ja'
 		? 'JIWF Academyを支える、世界中のパートナー・スポンサー。'
 		: 'A worldwide circle of partners and sponsors who walk with JIWF Academy.',
+	'image_setting' => 'jiwf_page_hero_community',
 ) ); ?>
 
 <section class="section section--ivory">

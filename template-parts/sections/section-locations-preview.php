@@ -5,9 +5,6 @@
  * @package jiwf-academy
  */
 $lang = jiwf_current_lang();
-
-$fuji_url     = jiwf_setting( 'jiwf_home_fuji_image' )     ?: jiwf_asset( 'images/fuji.jpg' );
-$himalaya_url = jiwf_setting( 'jiwf_home_himalaya_image' ) ?: jiwf_asset( 'images/himalaya.jpg' );
 ?>
 <section class="section section--ivory">
 	<div class="container">
@@ -19,7 +16,7 @@ $himalaya_url = jiwf_setting( 'jiwf_home_himalaya_image' ) ?: jiwf_asset( 'image
 		<div class="locations-preview">
 			<a class="locations-preview__card fade-up" href="<?php echo esc_url( home_url( '/campus/' ) ); ?>">
 				<div class="locations-preview__image">
-					<img src="<?php echo esc_url( $fuji_url ); ?>" alt="<?php esc_attr_e( 'Mt. Fuji', 'jiwf-academy' ); ?>" loading="lazy">
+					<?php jiwf_image( 'jiwf_home_fuji_image', 'jiwf-card', array( 'alt' => __( 'Mt. Fuji', 'jiwf-academy' ), 'loading' => 'lazy' ), 'images/fuji.jpg' ); ?>
 				</div>
 				<h3 class="locations-preview__country">
 					<em>Fuji (Japan)</em>
@@ -35,7 +32,7 @@ $himalaya_url = jiwf_setting( 'jiwf_home_himalaya_image' ) ?: jiwf_asset( 'image
 			</a>
 			<a class="locations-preview__card fade-up" href="<?php echo esc_url( home_url( '/campus/' ) ); ?>">
 				<div class="locations-preview__image">
-					<img src="<?php echo esc_url( $himalaya_url ); ?>" alt="<?php esc_attr_e( 'Himalayas', 'jiwf-academy' ); ?>" loading="lazy">
+					<?php jiwf_image( 'jiwf_home_himalaya_image', 'jiwf-card', array( 'alt' => __( 'Himalayas', 'jiwf-academy' ), 'loading' => 'lazy' ), 'images/himalaya.jpg' ); ?>
 				</div>
 				<h3 class="locations-preview__country">
 					<em>Himalayas (India)</em>

@@ -10,11 +10,12 @@ $lang = jiwf_current_lang();
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow' => __( 'Contact', 'jiwf-academy' ),
-	'title'   => $lang === 'ja' ? 'あなたの旅を、ここから' : 'Your journey begins here.',
-	'lead'    => $lang === 'ja'
+	'eyebrow'       => __( 'Contact', 'jiwf-academy' ),
+	'title'         => $lang === 'ja' ? 'あなたの旅を、ここから' : 'Your journey begins here.',
+	'lead'          => $lang === 'ja'
 		? 'プログラム、イベント、パートナーシップ、メディア取材など、お気軽にお問い合わせください。'
 		: 'Reach out for programs, events, partnerships, or media inquiries — we read every message.',
+	'image_setting' => 'jiwf_page_hero_contact',
 ) ); ?>
 
 <section class="section section--ivory">

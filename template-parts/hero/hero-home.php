@@ -8,15 +8,19 @@ $tagline = jiwf_tagline();
 $lang    = jiwf_current_lang();
 $motto   = jiwf_setting( 'jiwf_motto', 'One Wisdom, One World' );
 
-$hero_url = jiwf_setting( 'jiwf_home_hero_image' );
-if ( ! $hero_url && file_exists( JIWF_THEME_DIR . '/assets/images/hero-fuji-himalaya.jpg' ) ) {
-	$hero_url = jiwf_asset( 'images/hero-fuji-himalaya.jpg' );
-}
+$has_hero = jiwf_has_image( 'jiwf_home_hero_image', 'images/hero-fuji-himalaya.jpg' );
 ?>
 <section class="hero" aria-label="<?php esc_attr_e( 'Welcome to JIWF Academy', 'jiwf-academy' ); ?>">
 	<div class="hero__media">
-		<?php if ( $hero_url ) : ?>
-			<img src="<?php echo esc_url( $hero_url ); ?>" alt="" fetchpriority="high" loading="eager">
+		<?php if ( $has_hero ) : ?>
+			<?php
+			jiwf_image(
+				'jiwf_home_hero_image',
+				'jiwf-hero',
+				array( 'alt' => '', 'fetchpriority' => 'high', 'loading' => 'eager' ),
+				'images/hero-fuji-himalaya.jpg'
+			);
+			?>
 		<?php else : ?>
 			<div style="width:100%;height:100%;background:linear-gradient(180deg,#0A1628 0%,#14213D 50%,#2A3A5E 100%);"></div>
 		<?php endif; ?>

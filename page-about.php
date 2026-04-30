@@ -14,11 +14,12 @@ while ( have_posts() ) :
 	?>
 
 	<?php get_template_part( 'template-parts/hero/hero-page', null, array(
-		'eyebrow' => __( 'About', 'jiwf-academy' ),
-		'title'   => $lang === 'ja' ? '新しい文明のための、新しい教育' : 'A new education for a new civilization.',
-		'lead'    => $lang === 'ja'
+		'eyebrow'       => __( 'About', 'jiwf-academy' ),
+		'title'         => $lang === 'ja' ? '新しい文明のための、新しい教育' : 'A new education for a new civilization.',
+		'lead'          => $lang === 'ja'
 			? '富士からヒマラヤへ。智慧を生き、未来を創る女性たちのデジタルキャンパス。'
 			: 'From Mount Fuji to the Himalayas — a digital campus where women live the wisdom and shape the future.',
+		'image_setting' => 'jiwf_page_hero_about',
 	) ); ?>
 
 	<section class="section section--ivory">

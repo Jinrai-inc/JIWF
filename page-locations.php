@@ -17,11 +17,12 @@ $locations = new WP_Query( array(
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow' => __( 'Locations', 'jiwf-academy' ),
-	'title'   => $lang === 'ja' ? '日本・インドの2大拠点' : 'Two campuses, one wisdom.',
-	'lead'    => $lang === 'ja'
+	'eyebrow'       => __( 'Locations', 'jiwf-academy' ),
+	'title'         => $lang === 'ja' ? '日本・インドの2大拠点' : 'Two campuses, one wisdom.',
+	'lead'          => $lang === 'ja'
 		? '富士の麓と、ヒマラヤの懐に。私たちの学びは2つの聖地から始まります。'
 		: 'At the foot of Mount Fuji and within the Himalayas — our learning begins in two sacred lands.',
+	'image_setting' => 'jiwf_page_hero_locations',
 ) ); ?>
 
 <section class="section section--ivory">

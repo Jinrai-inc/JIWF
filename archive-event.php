@@ -10,11 +10,12 @@ $lang = jiwf_current_lang();
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow' => __( 'Events', 'jiwf-academy' ),
-	'title'   => $lang === 'ja' ? 'イベント・リトリート' : 'Gatherings &amp; Retreats.',
-	'lead'    => $lang === 'ja'
+	'eyebrow'       => __( 'Events', 'jiwf-academy' ),
+	'title'         => $lang === 'ja' ? 'イベント・リトリート' : 'Gatherings &amp; Retreats.',
+	'lead'          => $lang === 'ja'
 		? '世界と日本で開かれる、JIWF Academyの集い。'
 		: 'Where the Academy gathers — in Japan, in India, and online.',
+	'image_setting' => 'jiwf_page_hero_events',
 ) ); ?>
 
 <section class="section section--ivory">
