@@ -10,24 +10,26 @@ $lang = jiwf_current_lang();
 
 while ( have_posts() ) :
 	the_post();
-	$subtitle  = function_exists( 'get_field' ) ? get_field( 'subtitle' )           : '';
-	$duration  = function_exists( 'get_field' ) ? get_field( 'duration' )           : '';
-	$format    = function_exists( 'get_field' ) ? get_field( 'format' )             : '';
-	$modules   = function_exists( 'get_field' ) ? get_field( 'curriculum_modules' ) : array();
-	$audience  = function_exists( 'get_field' ) ? get_field( 'target_audience' )    : '';
-	$after     = function_exists( 'get_field' ) ? get_field( 'after_program' )      : '';
-	$faculty   = function_exists( 'get_field' ) ? get_field( 'faculty_relation' )   : array();
-	$hero_image = function_exists( 'get_field' ) ? get_field( 'hero_image' )         : null;
+	$subtitle  = jiwf_field( 'subtitle' );
+	$duration  = jiwf_field( 'duration' );
+	$format    = jiwf_field( 'format' );
+	$modules   = jiwf_parse_rows( jiwf_field( 'curriculum_modules' ), array( 'module_title', 'module_duration', 'module_description' ) );
+	$audience  = jiwf_field( 'target_audience' );
+	$after     = jiwf_field( 'after_program' );
+	$faculty_ids_raw = jiwf_field( 'faculty_ids' );
+	$faculty   = array_filter( array_map( 'absint', preg_split( '/[\s,]+/', (string) $faculty_ids_raw ) ) );
+	$hero_id   = (int) jiwf_field( 'hero_image_id' );
+	$hero_url  = $hero_id ? wp_get_attachment_image_url( $hero_id, 'jiwf-hero' ) : '';
 	?>
 
-	<section class="page-hero" style="<?php echo $hero_image ? 'background-image: linear-gradient(180deg, rgba(20,33,61,0.4) 0%, rgba(20,33,61,0.7) 100%), url(' . esc_url( $hero_image['url'] ) . '); background-size: cover; background-position: center; color: var(--jiwf-ivory);' : ''; ?>">
+	<section class="page-hero" style="<?php echo $hero_url ? 'background-image: linear-gradient(180deg, rgba(20,33,61,0.4) 0%, rgba(20,33,61,0.7) 100%), url(' . esc_url( $hero_url ) . '); background-size: cover; background-position: center; color: var(--jiwf-ivory);' : ''; ?>">
 		<div class="container">
-			<span class="page-hero__eyebrow" style="<?php echo $hero_image ? 'color: var(--jiwf-gold-light);' : ''; ?>">
+			<span class="page-hero__eyebrow" style="<?php echo $hero_url ? 'color: var(--jiwf-gold-light);' : ''; ?>">
 				<?php esc_html_e( 'Program', 'jiwf-academy' ); ?>
 			</span>
-			<h1 class="page-hero__title" style="<?php echo $hero_image ? 'color: var(--jiwf-ivory);' : ''; ?>"><?php the_title(); ?></h1>
+			<h1 class="page-hero__title" style="<?php echo $hero_url ? 'color: var(--jiwf-ivory);' : ''; ?>"><?php the_title(); ?></h1>
 			<?php if ( $subtitle ) : ?>
-				<p class="page-hero__lead" style="<?php echo $hero_image ? 'color: rgba(250,247,240,0.85);' : ''; ?>">
+				<p class="page-hero__lead" style="<?php echo $hero_url ? 'color: rgba(250,247,240,0.85);' : ''; ?>">
 					<?php echo esc_html( $subtitle ); ?>
 				</p>
 			<?php endif; ?>
@@ -51,11 +53,15 @@ while ( have_posts() ) :
 				<?php foreach ( $modules as $i => $m ) : ?>
 					<article class="card fade-up" style="border-top: 1px solid var(--jiwf-line);">
 						<span class="card__chapter"><?php echo esc_html( jiwf_roman( $i + 1 ) ); ?></span>
-						<h3 class="card__title"><?php echo esc_html( $m['module_title'] ?? '' ); ?></h3>
+						<?php if ( ! empty( $m['module_title'] ) ) : ?>
+							<h3 class="card__title"><?php echo esc_html( $m['module_title'] ); ?></h3>
+						<?php endif; ?>
 						<?php if ( ! empty( $m['module_duration'] ) ) : ?>
 							<p class="card__meta"><?php echo esc_html( $m['module_duration'] ); ?></p>
 						<?php endif; ?>
-						<p class="card__excerpt"><?php echo esc_html( $m['module_description'] ?? '' ); ?></p>
+						<?php if ( ! empty( $m['module_description'] ) ) : ?>
+							<p class="card__excerpt"><?php echo esc_html( $m['module_description'] ); ?></p>
+						<?php endif; ?>
 					</article>
 				<?php endforeach; ?>
 			</div>

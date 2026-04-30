@@ -88,6 +88,30 @@
 	margin-top: var(--space-sm);
 }
 
+.hero__tagline-pair {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-3xs);
+	margin-top: var(--space-lg);
+	color: rgba(250, 247, 240, 0.9);
+}
+
+.hero__tagline-en {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-size: var(--text-xl);
+	color: var(--jiwf-gold-light);
+	letter-spacing: 0.02em;
+}
+
+.hero__tagline-jp {
+	font-family: var(--font-jp-serif);
+	font-size: var(--text-base);
+	letter-spacing: 0.2em;
+	color: rgba(250, 247, 240, 0.7);
+}
+
 .hero__scroll {
 	margin-top: var(--space-2xl);
 	font-size: var(--text-xs);

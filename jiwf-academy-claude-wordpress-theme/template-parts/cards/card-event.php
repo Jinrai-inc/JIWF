@@ -4,9 +4,9 @@
  *
  * @package jiwf-academy
  */
-$start = function_exists( 'get_field' ) ? get_field( 'event_date_start' ) : '';
-$end   = function_exists( 'get_field' ) ? get_field( 'event_date_end' )   : '';
-$loc   = function_exists( 'get_field' ) ? get_field( 'event_location' )    : '';
+$start = jiwf_field( 'event_date_start' );
+$end   = jiwf_field( 'event_date_end' );
+$loc   = jiwf_field( 'event_location' );
 ?>
 <article class="card fade-up">
 	<?php if ( $start ) : ?>

@@ -5,15 +5,15 @@
  * @package jiwf-academy
  */
 $lang = jiwf_current_lang();
-$image_id = function_exists( 'get_field' ) ? get_field( 'home_about_image', 'option' ) : 0;
+$image_url = jiwf_setting( 'jiwf_home_about_image', '' );
 ?>
 <section class="section section--ivory">
 	<div class="container">
 		<div class="split">
 			<div class="image-frame fade-up" style="aspect-ratio: 4/5;">
 				<?php
-				if ( $image_id ) {
-					echo wp_get_attachment_image( $image_id, 'jiwf-card', false, array( 'alt' => '' ) );
+				if ( $image_url ) {
+					printf( '<img src="%s" alt="" loading="lazy">', esc_url( $image_url ) );
 				} else {
 					echo '<div style="width:100%;height:100%;background:var(--jiwf-ivory-warm);"></div>';
 				}

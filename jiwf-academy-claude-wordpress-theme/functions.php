@@ -17,7 +17,7 @@ require_once JIWF_THEME_DIR . '/inc/theme-supports.php';
 require_once JIWF_THEME_DIR . '/inc/enqueue.php';
 require_once JIWF_THEME_DIR . '/inc/cpt.php';
 require_once JIWF_THEME_DIR . '/inc/taxonomies.php';
-require_once JIWF_THEME_DIR . '/inc/acf-fields.php';
+require_once JIWF_THEME_DIR . '/inc/meta-boxes.php';
 require_once JIWF_THEME_DIR . '/inc/customizer.php';
 require_once JIWF_THEME_DIR . '/inc/helpers.php';
 require_once JIWF_THEME_DIR . '/inc/shortcodes.php';

@@ -10,13 +10,13 @@ $lang = jiwf_current_lang();
 
 while ( have_posts() ) :
 	the_post();
-	$start    = function_exists( 'get_field' ) ? get_field( 'event_date_start' )    : '';
-	$end      = function_exists( 'get_field' ) ? get_field( 'event_date_end' )      : '';
-	$loc      = function_exists( 'get_field' ) ? get_field( 'event_location' )       : '';
-	$addr     = function_exists( 'get_field' ) ? get_field( 'event_address' )        : '';
-	$schedule = function_exists( 'get_field' ) ? get_field( 'timetable' )            : array();
-	$method   = function_exists( 'get_field' ) ? get_field( 'application_method' )   : 'contact';
-	$ext_url  = function_exists( 'get_field' ) ? get_field( 'external_url' )         : '';
+	$start    = jiwf_field( 'event_date_start' );
+	$end      = jiwf_field( 'event_date_end' );
+	$loc      = jiwf_field( 'event_location' );
+	$addr     = jiwf_field( 'event_address' );
+	$schedule = jiwf_parse_rows( jiwf_field( 'timetable' ), array( 'time', 'title', 'description' ) );
+	$method   = jiwf_field( 'application_method' ) ?: 'contact';
+	$ext_url  = jiwf_field( 'external_url' );
 	?>
 
 	<?php get_template_part( 'template-parts/hero/hero-page', null, array(

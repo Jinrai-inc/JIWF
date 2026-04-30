@@ -84,9 +84,48 @@
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-@media (max-width: 900px) {
-	.card-grid--3 { grid-template-columns: 1fr; }
+.card-grid--5 {
+	grid-template-columns: repeat(5, minmax(0, 1fr));
 }
+
+@media (max-width: 1100px) { .card-grid--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { .card-grid--5 { grid-template-columns: 1fr; } }
+@media (max-width: 900px)  { .card-grid--3 { grid-template-columns: 1fr; } }
+
+/* === Program pillar card (with circular icon) === */
+.card--pillar {
+	border-top: 0;
+	padding: var(--space-md);
+	text-align: center;
+	align-items: center;
+}
+
+.card--pillar::after { left: 50%; transform: translateX(-50%); }
+.card--pillar:hover::after { width: 60%; }
+
+.card--pillar .card__icon {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--jiwf-gold);
+	background: var(--jiwf-ivory-warm);
+	margin-bottom: var(--space-sm);
+	transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+.card--pillar .card__icon[data-tone="rose"] { color: var(--jiwf-rose-deep); background: rgba(232, 197, 197, 0.25); }
+.card--pillar .card__icon[data-tone="sky"]  { color: var(--jiwf-navy);      background: rgba(184, 212, 227, 0.35); }
+.card--pillar .card__icon[data-tone="navy"] { color: var(--jiwf-ivory);     background: var(--jiwf-navy); }
+
+.card--pillar .card__icon svg { width: 30px; height: 30px; }
+
+.card--pillar:hover .card__icon { background: var(--jiwf-gold); color: var(--jiwf-ivory); }
+
+.card--pillar .card__title { font-size: var(--text-lg); }
+.card--pillar .card__excerpt { font-size: var(--text-sm); }
 
 /* === Faculty card === */
 .card-faculty {

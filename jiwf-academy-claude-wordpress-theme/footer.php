@@ -65,7 +65,7 @@
 				<?php esc_html_e( 'Quarterly notes from the Academy — events, essays, and invitations.', 'jiwf-academy' ); ?>
 			</p>
 			<?php
-			$embed = function_exists( 'get_field' ) ? get_field( 'newsletter_embed', 'option' ) : '';
+			$embed = jiwf_setting( 'jiwf_newsletter_embed', '' );
 			if ( $embed ) {
 				echo wp_kses_post( $embed );
 			} else {
@@ -103,17 +103,14 @@
 
 		<ul class="site-footer__social">
 			<?php
-			$socials = function_exists( 'get_field' ) ? get_field( 'social_links', 'option' ) : array();
-			if ( ! empty( $socials ) && is_array( $socials ) ) {
-				foreach ( $socials as $s ) {
-					if ( empty( $s['url'] ) ) continue;
-					printf(
-						'<li><a href="%s" target="_blank" rel="noopener" aria-label="%s">%s</a></li>',
-						esc_url( $s['url'] ),
-						esc_attr( $s['label'] ),
-						esc_html( strtoupper( substr( $s['label'], 0, 2 ) ) )
-					);
-				}
+			$socials = jiwf_parse_pairs( jiwf_setting( 'jiwf_social_links', '' ) );
+			foreach ( $socials as $s ) {
+				printf(
+					'<li><a href="%s" target="_blank" rel="noopener" aria-label="%s">%s</a></li>',
+					esc_url( $s['url'] ),
+					esc_attr( $s['label'] ),
+					esc_html( strtoupper( substr( $s['label'], 0, 2 ) ) )
+				);
 			}
 			?>
 		</ul>

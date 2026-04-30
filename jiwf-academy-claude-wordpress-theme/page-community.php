@@ -38,9 +38,11 @@ $partner_types = get_terms( array( 'taxonomy' => 'partner_type', 'hide_empty' =>
 					<?php
 					while ( $q->have_posts() ) {
 						$q->the_post();
-						$logo = function_exists( 'get_field' ) ? get_field( 'logo' ) : null;
-						if ( $logo && ! empty( $logo['url'] ) ) {
-							printf( '<img src="%s" alt="%s" loading="lazy">', esc_url( $logo['url'] ), esc_attr( get_the_title() ) );
+						$logo_id = (int) jiwf_field( 'logo_id' );
+						if ( $logo_id ) {
+							echo wp_get_attachment_image( $logo_id, 'medium', false, array( 'loading' => 'lazy', 'alt' => get_the_title() ) );
+						} elseif ( has_post_thumbnail() ) {
+							the_post_thumbnail( 'medium', array( 'loading' => 'lazy' ) );
 						} else {
 							printf( '<span class="partner-row__city">%s</span>', esc_html( get_the_title() ) );
 						}

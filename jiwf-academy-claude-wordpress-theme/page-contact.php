@@ -32,7 +32,7 @@ $lang = jiwf_current_lang();
 					?>
 				</p>
 				<?php
-				$email = function_exists( 'get_field' ) ? get_field( 'contact_email', 'option' ) : '';
+				$email = jiwf_setting( 'jiwf_contact_email', '' );
 				if ( $email ) :
 					?>
 					<p style="margin-top: var(--space-lg);">

@@ -5,7 +5,7 @@
  * @package jiwf-academy
  */
 $num = isset( $args['num'] ) ? (int) $args['num'] : 0;
-$subtitle = function_exists( 'get_field' ) ? get_field( 'subtitle' ) : '';
+$subtitle = jiwf_field( 'subtitle' );
 ?>
 <article class="card fade-up">
 	<?php if ( $num ) : ?>

@@ -14,9 +14,9 @@ $events = new WP_Query( array(
 	'meta_query'     => array(
 		array(
 			'key'     => 'event_date_start',
-			'value'   => current_time( 'Y-m-d H:i:s' ),
+			'value'   => current_time( 'Y-m-d\TH:i' ),
 			'compare' => '>=',
-			'type'    => 'DATETIME',
+			'type'    => 'CHAR',
 		),
 	),
 ) );

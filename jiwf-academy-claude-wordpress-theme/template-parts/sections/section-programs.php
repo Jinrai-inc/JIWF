@@ -1,12 +1,13 @@
 <?php
 /**
- * Programs preview (3 pillars on home; full 5 on archive variant).
+ * Programs preview — Five Pillars of Wisdom.
  *
  * @package jiwf-academy
  */
 
 $lang  = jiwf_current_lang();
-$limit = isset( $args['limit'] ) ? (int) $args['limit'] : 3;
+$limit = isset( $args['limit'] ) ? (int) $args['limit'] : 5;
+$grid  = $limit >= 5 ? 'card-grid--5' : 'card-grid--3';
 
 $query = new WP_Query( array(
 	'post_type'      => 'program',
@@ -14,56 +15,74 @@ $query = new WP_Query( array(
 	'orderby'        => 'menu_order title',
 	'order'          => 'ASC',
 ) );
+
+// Default placeholders (used when no programs are published yet).
+$placeholders = array(
+	array(
+		'title_en' => 'GITA Wisdom',
+		'title_jp' => 'バガヴァッド・ギーターの知恵を日常に生かす',
+		'icon'     => 'lotus',
+		'tone'     => 'rose',
+	),
+	array(
+		'title_en' => 'Yoga & Well-being',
+		'title_jp' => 'ヨガ・呼吸法・アーユルヴェーダで心身のバランスを整える',
+		'icon'     => 'feather',
+		'tone'     => 'gold',
+	),
+	array(
+		'title_en' => 'Leadership Development',
+		'title_jp' => '女性リーダーシップ・コミュニケーション・マインドセットを育成',
+		'icon'     => 'heart',
+		'tone'     => 'rose',
+	),
+	array(
+		'title_en' => 'Global Collaboration',
+		'title_jp' => '日本とインド、そして世界をつなぐネットワークと共創の場',
+		'icon'     => 'globe',
+		'tone'     => 'sky',
+	),
+	array(
+		'title_en' => 'Social Impact &amp; Entrepreneurship',
+		'title_jp' => '社会課題を解決し、持続可能な未来を創る力を育てる',
+		'icon'     => 'sun',
+		'tone'     => 'navy',
+	),
+);
 ?>
-<section class="section section--ivory">
+<section class="section section--ivory-warm">
 	<div class="container">
 		<div class="section__head fade-up">
-			<span class="eyebrow"><?php esc_html_e( 'Five Pillars of Wisdom', 'jiwf-academy' ); ?></span>
-			<h2><?php echo $lang === 'ja' ? 'プログラム' : '<em>Programs</em>'; ?></h2>
-			<p class="lead">
-				<?php
-				echo $lang === 'ja'
-					? '東洋の智慧と現代の実践を結ぶ、5つの学びの柱。'
-					: 'Five pillars where ancient wisdom meets modern practice.';
-				?>
-			</p>
+			<span class="eyebrow"><?php esc_html_e( 'Our Programs', 'jiwf-academy' ); ?></span>
+			<h2><?php echo $lang === 'ja' ? '智慧の5つの柱' : '<em>Five Pillars of Wisdom</em>'; ?></h2>
 		</div>
 
-		<div class="card-grid card-grid--3">
+		<div class="card-grid <?php echo esc_attr( $grid ); ?>">
 			<?php
 			$i = 0;
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) :
 					$query->the_post();
 					$i++;
-					$subtitle = function_exists( 'get_field' ) ? get_field( 'subtitle' ) : '';
+					$icon = $placeholders[ $i - 1 ]['icon'] ?? 'lotus';
+					$tone = $placeholders[ $i - 1 ]['tone'] ?? 'gold';
 					?>
-					<article class="card fade-up">
-						<span class="card__chapter"><?php echo esc_html( jiwf_roman( $i ) ); ?></span>
-						<h3 class="card__title"><?php the_title(); ?></h3>
-						<?php if ( $subtitle ) : ?>
-							<p class="card__meta"><?php echo esc_html( $subtitle ); ?></p>
-						<?php endif; ?>
-						<p class="card__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 32 ) ); ?></p>
-						<a class="card__cta" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Explore', 'jiwf-academy' ); ?></a>
+					<article class="card card--pillar fade-up">
+						<span class="card__icon" data-tone="<?php echo esc_attr( $tone ); ?>"><?php echo jiwf_value_icon_svg( $icon ); ?></span>
+						<h3 class="card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+						<p class="card__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 28 ) ); ?></p>
 					</article>
 					<?php
 				endwhile;
 				wp_reset_postdata();
 			else :
-				// Editorial placeholder when no programs are published yet.
-				$placeholders = array(
-					array( 'GITA Wisdom', '人生の目的、倫理的行動、内なる明晰さを育む普遍の智慧。' ),
-					array( 'Yoga & Wellbeing', '身体・心・精神を整え、活力、しなやかさ、調和を育みます。' ),
-					array( 'Leadership', 'リーダーシップ、起業家精神、社会変革の力を育む。' ),
-				);
 				foreach ( $placeholders as $idx => $p ) :
+					if ( $idx >= $limit ) break;
 					?>
-					<article class="card fade-up">
-						<span class="card__chapter"><?php echo esc_html( jiwf_roman( $idx + 1 ) ); ?></span>
-						<h3 class="card__title"><?php echo esc_html( $p[0] ); ?></h3>
-						<p class="card__excerpt"><?php echo esc_html( $p[1] ); ?></p>
-						<span class="card__cta"><?php esc_html_e( 'Coming soon', 'jiwf-academy' ); ?></span>
+					<article class="card card--pillar fade-up">
+						<span class="card__icon" data-tone="<?php echo esc_attr( $p['tone'] ); ?>"><?php echo jiwf_value_icon_svg( $p['icon'] ); ?></span>
+						<h3 class="card__title"><?php echo wp_kses_post( $p['title_en'] ); ?></h3>
+						<p class="card__excerpt" style="font-family: var(--font-jp-body);"><?php echo esc_html( $p['title_jp'] ); ?></p>
 					</article>
 				<?php
 				endforeach;

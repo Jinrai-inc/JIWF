@@ -1,25 +1,27 @@
 <?php
 /**
  * Three-image visual story (Stillness / Wisdom / Grandeur).
+ * Uses Customizer images, falling back to bundled theme defaults.
  *
  * @package jiwf-academy
  */
 $lang = jiwf_current_lang();
+
 $items = array(
 	array(
-		'image_id' => function_exists( 'get_field' ) ? get_field( 'home_story_image_1', 'option' ) : 0,
-		'label_en' => 'Stillness',
-		'label_jp' => '静謐',
+		'src'       => jiwf_setting( 'jiwf_home_fuji_image' )      ?: jiwf_asset( 'images/fuji.jpg' ),
+		'label_en'  => 'Stillness',
+		'label_jp'  => '静謐',
 	),
 	array(
-		'image_id' => function_exists( 'get_field' ) ? get_field( 'home_story_image_2', 'option' ) : 0,
-		'label_en' => 'Wisdom',
-		'label_jp' => '智慧',
+		'src'       => jiwf_setting( 'jiwf_home_about_image' )     ?: jiwf_asset( 'images/learning.jpg' ),
+		'label_en'  => 'Wisdom',
+		'label_jp'  => '智慧',
 	),
 	array(
-		'image_id' => function_exists( 'get_field' ) ? get_field( 'home_story_image_3', 'option' ) : 0,
-		'label_en' => 'Grandeur',
-		'label_jp' => '壮大',
+		'src'       => jiwf_setting( 'jiwf_home_himalaya_image' )  ?: jiwf_asset( 'images/himalaya.jpg' ),
+		'label_en'  => 'Grandeur',
+		'label_jp'  => '壮大',
 	),
 );
 ?>
@@ -29,13 +31,7 @@ $items = array(
 			<?php foreach ( $items as $item ) : ?>
 				<figure class="story-trio__item fade-up">
 					<div class="story-trio__image">
-						<?php
-						if ( $item['image_id'] ) {
-							echo wp_get_attachment_image( $item['image_id'], 'jiwf-card', false, array( 'alt' => $item['label_en'] ) );
-						} else {
-							echo '<div style="width:100%;height:100%;background:linear-gradient(180deg,var(--jiwf-sky-soft) 0%, var(--jiwf-ivory-warm) 100%);"></div>';
-						}
-						?>
+						<img src="<?php echo esc_url( $item['src'] ); ?>" alt="<?php echo esc_attr( $item['label_en'] ); ?>" loading="lazy">
 					</div>
 					<figcaption class="story-trio__label">
 						<em><?php echo esc_html( $item['label_en'] ); ?></em>

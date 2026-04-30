@@ -4,15 +4,15 @@
  *
  * @package jiwf-academy
  */
-$portrait = function_exists( 'get_field' ) ? get_field( 'portrait' ) : null;
-$role     = function_exists( 'get_field' ) ? get_field( 'title' )    : '';
-$name_jp  = function_exists( 'get_field' ) ? get_field( 'name_jp' )  : '';
+$portrait_id = (int) jiwf_field( 'portrait_id' );
+$role        = jiwf_field( 'role_title' );
+$name_jp     = jiwf_field( 'name_jp' );
 ?>
 <article class="card-faculty fade-up">
 	<a href="<?php the_permalink(); ?>" class="card-faculty__portrait">
 		<?php
-		if ( $portrait && ! empty( $portrait['url'] ) ) {
-			printf( '<img src="%s" alt="%s" loading="lazy">', esc_url( $portrait['url'] ), esc_attr( get_the_title() ) );
+		if ( $portrait_id ) {
+			echo wp_get_attachment_image( $portrait_id, 'jiwf-portrait', false, array( 'loading' => 'lazy', 'alt' => get_the_title() ) );
 		} elseif ( has_post_thumbnail() ) {
 			the_post_thumbnail( 'jiwf-portrait', array( 'loading' => 'lazy' ) );
 		}

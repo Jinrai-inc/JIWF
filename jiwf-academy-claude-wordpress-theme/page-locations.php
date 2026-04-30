@@ -31,9 +31,9 @@ $locations = new WP_Query( array(
 			if ( $locations->have_posts() ) {
 				while ( $locations->have_posts() ) {
 					$locations->the_post();
-					$country = function_exists( 'get_field' ) ? get_field( 'country' ) : '';
-					$tagline = function_exists( 'get_field' ) ? get_field( 'tagline' ) : '';
-					$hero    = function_exists( 'get_field' ) ? get_field( 'hero_image' ) : null;
+					$country = jiwf_field( 'country' );
+					$tagline = jiwf_field( 'tagline' );
+					$hero_id = (int) jiwf_field( 'hero_image_id' );
 					?>
 					<article class="location-card fade-up">
 						<?php if ( $country ) : ?>
@@ -41,9 +41,13 @@ $locations = new WP_Query( array(
 						<?php endif; ?>
 						<h2 class="location-card__title"><?php the_title(); ?></h2>
 						<div class="location-card__image">
-							<?php if ( $hero && ! empty( $hero['url'] ) ) : ?>
-								<img src="<?php echo esc_url( $hero['url'] ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy">
-							<?php endif; ?>
+							<?php
+							if ( $hero_id ) {
+								echo wp_get_attachment_image( $hero_id, 'jiwf-card', false, array( 'loading' => 'lazy', 'alt' => get_the_title() ) );
+							} elseif ( has_post_thumbnail() ) {
+								the_post_thumbnail( 'jiwf-card', array( 'loading' => 'lazy' ) );
+							}
+							?>
 						</div>
 						<?php if ( $tagline ) : ?>
 							<p class="lead"><?php echo esc_html( $tagline ); ?></p>
