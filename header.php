@@ -40,20 +40,51 @@
 					'fallback_cb'    => false,
 				) );
 			} else {
-				echo '<ul class="primary-nav__list">';
-				$default_links = array(
-					'/'           => __( 'Home', 'jiwf-academy' ),
-					'/about/'     => __( 'About', 'jiwf-academy' ),
-					'/programs/'  => __( 'Programs', 'jiwf-academy' ),
-					'/campus/'    => __( 'Locations', 'jiwf-academy' ),
-					'/community/' => __( 'Community', 'jiwf-academy' ),
-					'/events/'    => __( 'Events', 'jiwf-academy' ),
-					'/contact/'   => __( 'Contact', 'jiwf-academy' ),
+				/*
+				 * No menu has been assigned yet. Resolve each link from real
+				 * WP entities so we never link to a 404, and skip anything
+				 * that hasn't been published yet.
+				 */
+				$nav_items = array(
+					array( 'page' => 'about',     'label' => __( 'About', 'jiwf-academy' ) ),
+					array( 'cpt'  => 'program',   'label' => __( 'Programs', 'jiwf-academy' ) ),
+					array( 'page' => 'campus',    'label' => __( 'Locations', 'jiwf-academy' ) ),
+					array( 'page' => 'community', 'label' => __( 'Community', 'jiwf-academy' ) ),
+					array( 'cpt'  => 'event',     'label' => __( 'Events', 'jiwf-academy' ) ),
+					array( 'page' => 'contact',   'label' => __( 'Contact', 'jiwf-academy' ) ),
 				);
-				foreach ( $default_links as $url => $label ) {
-					printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( $url ) ), esc_html( $label ) );
+
+				$rendered = array();
+				foreach ( $nav_items as $item ) {
+					if ( ! empty( $item['page'] ) ) {
+						$page = get_page_by_path( $item['page'], OBJECT, 'page' );
+						if ( ! $page || $page->post_status !== 'publish' ) continue;
+						$rendered[] = sprintf(
+							'<li><a href="%s">%s</a></li>',
+							esc_url( get_permalink( $page ) ),
+							esc_html( $item['label'] )
+						);
+					} elseif ( ! empty( $item['cpt'] ) ) {
+						$url = get_post_type_archive_link( $item['cpt'] );
+						if ( ! $url ) continue;
+						$rendered[] = sprintf(
+							'<li><a href="%s">%s</a></li>',
+							esc_url( $url ),
+							esc_html( $item['label'] )
+						);
+					}
 				}
-				echo '</ul>';
+
+				if ( $rendered ) {
+					echo '<ul class="primary-nav__list">' . implode( '', $rendered ) . '</ul>';
+				} elseif ( current_user_can( 'manage_options' ) ) {
+					printf(
+						'<p class="primary-nav__empty">%s <a href="%s">%s</a></p>',
+						esc_html__( 'Pages are not yet published.', 'jiwf-academy' ),
+						esc_url( admin_url( '?jiwf_seed=1' ) ),
+						esc_html__( 'Run the JIWF starter setup', 'jiwf-academy' )
+					);
+				}
 			}
 			?>
 		</nav>

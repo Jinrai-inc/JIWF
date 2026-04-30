@@ -84,6 +84,38 @@ WordPress コアのみで動作します。ACF などの追加プラグインは
 | Contact | **Contact** |
 | Privacy / Terms | デフォルトページテンプレート |
 
+## 自動セットアップ（テーマ有効化時に走ります）
+
+テーマを有効化すると、以下が**自動的に作成**されます：
+
+### 1. 固定ページ 6 件
+
+| タイトル | スラッグ | テンプレート | 初期ブロック |
+| --- | --- | --- | --- |
+| About | `/about/` | About | About — starter パターン展開済み |
+| Locations | `/campus/` | Locations | Page hero + Locations pair + Closing CTA |
+| Community | `/community/` | Community | Community — starter パターン展開済み |
+| Contact | `/contact/` | Contact | Page hero + Contact info + Contact Form 7 ヒント |
+| Privacy Policy | `/privacy/` | （デフォルト） | TODO 注付きプレースホルダ |
+| Terms of Use | `/terms/` | （デフォルト） | TODO 注付きプレースホルダ |
+
+各ページの本文はすでにブロックで埋まっているので、編集画面を開いてテキストを差し替えればすぐ公開できます。
+
+### 2. ナビゲーションメニュー 2 種
+
+- **Primary** — About / Programs / Locations / Community / Events / Contact
+- **Legal** — Privacy / Terms
+
+両方とも `primary` / `legal` の表示位置に自動で割り当てられます。
+
+### 既にテーマを有効化済みの場合
+
+セットアップが走らなかった場合は、管理画面で **`/wp-admin/?jiwf_seed=1`** にアクセスすると再実行できます（管理者のみ）。既に存在するページ・メニューはスキップされ、足りないものだけ追加されます。
+
+### メニュー未割り当てのときの保険
+
+なんらかの理由でメニューが未設定でも、ヘッダー側で自動的に **公開済みの固定ページ + CPT アーカイブ** からナビを組み立てるので、リンクが 404 にならないようになっています。
+
 ## 編集者向けワークフロー
 
 1. **外観 → カスタマイズ → JIWF Academy** … タグライン、ヒーロー画像、富士／ヒマラヤ写真、問合せメール、SNS、ニュースレター埋め込みを設定
