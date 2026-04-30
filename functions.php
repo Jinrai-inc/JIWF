@@ -20,7 +20,6 @@ require_once JIWF_THEME_DIR . '/inc/taxonomies.php';
 require_once JIWF_THEME_DIR . '/inc/meta-boxes.php';
 require_once JIWF_THEME_DIR . '/inc/customizer.php';
 require_once JIWF_THEME_DIR . '/inc/helpers.php';
-require_once JIWF_THEME_DIR . '/inc/i18n.php';
 require_once JIWF_THEME_DIR . '/inc/shortcodes.php';
 require_once JIWF_THEME_DIR . '/inc/block-patterns.php';
 require_once JIWF_THEME_DIR . '/inc/setup-content.php';

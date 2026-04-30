@@ -65,3 +65,19 @@ function jiwf_preconnect_fonts() {
 	echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
 	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 }
+
+/**
+ * Apply Customizer-controlled CSS variables (logo height, etc).
+ */
+add_action( 'wp_head', 'jiwf_inline_css_vars', 30 );
+function jiwf_inline_css_vars() {
+	$h_desktop = absint( get_theme_mod( 'jiwf_logo_height', 56 ) );
+	$h_mobile  = absint( get_theme_mod( 'jiwf_logo_height_mobile', 40 ) );
+	if ( ! $h_desktop ) $h_desktop = 56;
+	if ( ! $h_mobile )  $h_mobile  = 40;
+	printf(
+		"<style id=\"jiwf-customizer-vars\">:root{--jiwf-logo-height:%dpx;--jiwf-logo-height-mobile:%dpx;}</style>\n",
+		$h_desktop,
+		$h_mobile
+	);
+}

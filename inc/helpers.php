@@ -132,18 +132,12 @@ if ( ! function_exists( 'pll_e' ) ) {
 }
 
 /**
- * Current site language code (delegates to inc/i18n.php).
+ * Current site language code (read off WP locale; English content is
+ * delivered via Google Translate, not a per-page switcher).
  */
 function jiwf_current_lang() {
-	static $cached = null;
-	if ( $cached !== null ) return $cached;
-	if ( function_exists( 'jiwf_resolve_language' ) ) {
-		$cached = jiwf_resolve_language();
-	} else {
-		$locale = get_locale();
-		$cached = ( strpos( $locale, 'ja' ) === 0 ) ? 'ja' : 'en';
-	}
-	return $cached;
+	$locale = get_locale();
+	return ( strpos( $locale, 'ja' ) === 0 ) ? 'ja' : 'en';
 }
 
 /**
@@ -184,51 +178,6 @@ function jiwf_brand_statement() {
 		?: __( 'A digital campus where wisdom meets leadership — a place for women to live their purpose and shape the future.', 'jiwf-academy' );
 }
 
-/**
- * Language switcher.
- * - Uses Polylang's data when available.
- * - Otherwise renders ?lang=ja|en links to the paired post (or to the
- *   same URL with the lang flag flipped if no pair is set).
- */
-function jiwf_language_switcher() {
-	if ( function_exists( 'pll_the_languages' ) ) {
-		$langs = pll_the_languages( array( 'raw' => 1, 'hide_if_no_translation' => 0 ) );
-		echo '<ul class="lang-switch" aria-label="' . esc_attr__( 'Language', 'jiwf-academy' ) . '">';
-		foreach ( (array) $langs as $lang ) {
-			$cls = $lang['current_lang'] ? ' is-active' : '';
-			printf(
-				'<li class="lang-switch__item%1$s"><a href="%2$s" hreflang="%3$s" lang="%3$s">%4$s</a></li>',
-				esc_attr( $cls ),
-				esc_url( $lang['url'] ),
-				esc_attr( $lang['slug'] ),
-				esc_html( strtoupper( $lang['slug'] ) )
-			);
-		}
-		echo '</ul>';
-		return;
-	}
-
-	$current = jiwf_current_lang();
-	$pairs   = array(
-		'ja' => array( 'label' => 'JP', 'hreflang' => 'ja' ),
-		'en' => array( 'label' => 'EN', 'hreflang' => 'en' ),
-	);
-
-	echo '<ul class="lang-switch" aria-label="' . esc_attr__( 'Language', 'jiwf-academy' ) . '">';
-	foreach ( $pairs as $slug => $meta ) {
-		$is_active = ( $current === $slug );
-		$url = function_exists( 'jiwf_current_url_in_lang' ) ? jiwf_current_url_in_lang( $slug ) : '#';
-		printf(
-			'<li class="lang-switch__item%1$s"><a href="%2$s" hreflang="%3$s" lang="%3$s" rel="alternate"%4$s>%5$s</a></li>',
-			$is_active ? ' is-active' : '',
-			esc_url( $url ),
-			esc_attr( $meta['hreflang'] ),
-			$is_active ? ' aria-current="true"' : '',
-			esc_html( $meta['label'] )
-		);
-	}
-	echo '</ul>';
-}
 
 /**
  * Outline CTA button.

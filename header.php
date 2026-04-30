@@ -18,16 +18,17 @@
 
 <header class="site-header" role="banner">
 	<div class="site-header__inner">
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-brand" rel="home">
+
+		<div class="site-brand">
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
-				<span>
+				<a class="site-brand__text" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 					JIWF Academy
 					<span class="site-brand__sub">One Wisdom · One World</span>
-				</span>
+				</a>
 			<?php endif; ?>
-		</a>
+		</div>
 
 		<nav class="primary-nav" aria-label="<?php esc_attr_e( 'Primary', 'jiwf-academy' ); ?>">
 			<?php
@@ -40,11 +41,6 @@
 					'fallback_cb'    => false,
 				) );
 			} else {
-				/*
-				 * No menu has been assigned yet. Resolve each link from real
-				 * WP entities so we never link to a 404, and skip anything
-				 * that hasn't been published yet.
-				 */
 				$nav_items = array(
 					array( 'page' => 'about',     'label' => __( 'About', 'jiwf-academy' ) ),
 					array( 'cpt'  => 'program',   'label' => __( 'Programs', 'jiwf-academy' ) ),
@@ -53,28 +49,18 @@
 					array( 'cpt'  => 'event',     'label' => __( 'Events', 'jiwf-academy' ) ),
 					array( 'page' => 'contact',   'label' => __( 'Contact', 'jiwf-academy' ) ),
 				);
-
 				$rendered = array();
 				foreach ( $nav_items as $item ) {
 					if ( ! empty( $item['page'] ) ) {
 						$page = get_page_by_path( $item['page'], OBJECT, 'page' );
 						if ( ! $page || $page->post_status !== 'publish' ) continue;
-						$rendered[] = sprintf(
-							'<li><a href="%s">%s</a></li>',
-							esc_url( get_permalink( $page ) ),
-							esc_html( $item['label'] )
-						);
+						$rendered[] = sprintf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $page ) ), esc_html( $item['label'] ) );
 					} elseif ( ! empty( $item['cpt'] ) ) {
 						$url = get_post_type_archive_link( $item['cpt'] );
 						if ( ! $url ) continue;
-						$rendered[] = sprintf(
-							'<li><a href="%s">%s</a></li>',
-							esc_url( $url ),
-							esc_html( $item['label'] )
-						);
+						$rendered[] = sprintf( '<li><a href="%s">%s</a></li>', esc_url( $url ), esc_html( $item['label'] ) );
 					}
 				}
-
 				if ( $rendered ) {
 					echo '<ul class="primary-nav__list">' . implode( '', $rendered ) . '</ul>';
 				} elseif ( current_user_can( 'manage_options' ) ) {
@@ -90,7 +76,6 @@
 		</nav>
 
 		<div class="site-header__actions">
-			<?php jiwf_language_switcher(); ?>
 			<?php jiwf_cta_button(); ?>
 		</div>
 

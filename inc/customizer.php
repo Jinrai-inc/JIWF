@@ -71,6 +71,38 @@ function jiwf_customize_register( WP_Customize_Manager $wp ) {
 		'priority'    => 25,
 	) );
 
+	/* === Section: Logo size === */
+	$wp->add_section( 'jiwf_layout', array(
+		'title'    => __( 'Header &amp; Logo', 'jiwf-academy' ),
+		'panel'    => 'jiwf_panel',
+		'priority' => 5,
+	) );
+
+	$wp->add_setting( 'jiwf_logo_height', array(
+		'default'           => 56,
+		'sanitize_callback' => 'absint',
+		'transport'         => 'postMessage',
+	) );
+	$wp->add_control( 'jiwf_logo_height', array(
+		'label'       => __( 'Logo height (px)', 'jiwf-academy' ),
+		'description' => __( 'Adjust the header logo size. Recommended 40–80 px.', 'jiwf-academy' ),
+		'section'     => 'jiwf_layout',
+		'type'        => 'number',
+		'input_attrs' => array( 'min' => 24, 'max' => 120, 'step' => 2 ),
+	) );
+
+	$wp->add_setting( 'jiwf_logo_height_mobile', array(
+		'default'           => 40,
+		'sanitize_callback' => 'absint',
+		'transport'         => 'postMessage',
+	) );
+	$wp->add_control( 'jiwf_logo_height_mobile', array(
+		'label'       => __( 'Logo height on mobile (px)', 'jiwf-academy' ),
+		'section'     => 'jiwf_layout',
+		'type'        => 'number',
+		'input_attrs' => array( 'min' => 24, 'max' => 80, 'step' => 2 ),
+	) );
+
 	/* === Section: Brand & Tagline === */
 	$wp->add_section( 'jiwf_brand', array(
 		'title' => __( 'Brand &amp; Tagline', 'jiwf-academy' ),
