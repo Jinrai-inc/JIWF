@@ -236,6 +236,13 @@ function jiwf_value_icon_svg( $name ) {
 }
 
 /**
+ * Drop the "Archives:" / "アーカイブ:" prefix WordPress prepends to
+ * get_the_archive_title() — it conflicts with the editorial heading
+ * style our hero uses.
+ */
+add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+
+/**
  * Hide past events from the events archive and order by start date.
  */
 add_action( 'pre_get_posts', 'jiwf_filter_past_events' );

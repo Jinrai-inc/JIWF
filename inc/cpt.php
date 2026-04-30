@@ -51,9 +51,13 @@ function jiwf_register_post_types() {
 		'location' => array(
 			'singular' => __( 'Location', 'jiwf-academy' ),
 			'plural'   => __( 'Locations', 'jiwf-academy' ),
-			'slug'     => 'campus',
+			// CPT used as a data source inside the Locations page
+			// (locations-pair pattern). The page lives at /campus/, so we
+			// disable the CPT archive route to avoid collision.
+			'slug'     => 'jiwf-location',
 			'menu_icon' => 'dashicons-location',
 			'menu_position' => 25,
+			'has_archive' => false,
 		),
 	);
 

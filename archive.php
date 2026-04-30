@@ -8,8 +8,15 @@
 get_header();
 ?>
 
+<?php
+// get_the_archive_title() returns markup like "アーカイブ: <span>Foo</span>"
+// — strip the HTML so hero-page can safely esc_html() it. We also drop
+// the leading "アーカイブ:" prefix WordPress prepends.
+$archive_title = wp_strip_all_tags( get_the_archive_title() );
+$archive_title = preg_replace( '/^(?:Archives?:|アーカイブ:)\s*/u', '', $archive_title );
+?>
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'title' => get_the_archive_title(),
+	'title' => $archive_title,
 	'lead'  => wp_strip_all_tags( get_the_archive_description() ),
 ) ); ?>
 

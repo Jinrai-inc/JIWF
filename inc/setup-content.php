@@ -30,14 +30,20 @@ function jiwf_install_starter_content() {
 
 /**
  * Flush rewrite rules once after CPTs are registered, then clear the flag.
- * Without this the /programs/ and /events/ archive URLs return 404 on a
- * fresh activation.
+ *
+ * Triggers:
+ *   1. Theme activation (jiwf_needs_rewrite_flush=1)
+ *   2. Theme version change — keeps slug / has_archive changes in sync
+ *      with the cached rewrite table without manual permalink-saving.
  */
 add_action( 'init', 'jiwf_maybe_flush_rewrites', 99 );
 function jiwf_maybe_flush_rewrites() {
-	if ( get_option( 'jiwf_needs_rewrite_flush' ) !== '1' ) return;
+	$needs    = get_option( 'jiwf_needs_rewrite_flush' ) === '1';
+	$last_ver = get_option( 'jiwf_rewrite_version' );
+	if ( ! $needs && $last_ver === JIWF_THEME_VERSION ) return;
 	flush_rewrite_rules( false );
 	delete_option( 'jiwf_needs_rewrite_flush' );
+	update_option( 'jiwf_rewrite_version', JIWF_THEME_VERSION );
 }
 
 /**
