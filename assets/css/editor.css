@@ -1,0 +1,57 @@
+/* ============================================================
+   Block editor adjustments — preview parity with the front-end
+   ============================================================ */
+
+.editor-styles-wrapper {
+	background: var(--jiwf-ivory);
+	color: var(--jiwf-text);
+	font-family: var(--font-body);
+}
+
+/* Group blocks with our `section--*` classes inherit their background
+   in the editor too. */
+.editor-styles-wrapper .section,
+.editor-styles-wrapper .page-hero {
+	border-radius: 0;
+}
+
+.editor-styles-wrapper .jiwf-divider {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	margin: 40px auto;
+	max-width: 320px;
+}
+
+.editor-styles-wrapper .jiwf-divider__line {
+	flex: 1;
+	height: 1px;
+	background: var(--jiwf-gold);
+	opacity: 0.5;
+}
+
+.editor-styles-wrapper .jiwf-divider__symbol {
+	color: var(--jiwf-gold);
+	font-size: 14px;
+	letter-spacing: 0.2em;
+}
+
+/* Card / partner / value-strip in the editor */
+.editor-styles-wrapper .card,
+.editor-styles-wrapper .value-strip,
+.editor-styles-wrapper .partner-row,
+.editor-styles-wrapper .timeline {
+	max-width: none;
+}
+
+/* Make the closing CTA pattern visibly dark in the editor too */
+.editor-styles-wrapper .closing-cta {
+	background: linear-gradient(180deg, rgba(20,33,61,0.55) 0%, rgba(20,33,61,0.85) 100%), linear-gradient(180deg, var(--jiwf-sky) 0%, var(--jiwf-ivory) 100%);
+	color: var(--jiwf-ivory);
+}
+
+.editor-styles-wrapper .closing-cta h2,
+.editor-styles-wrapper .closing-cta p { color: var(--jiwf-ivory); }
+
+/* Hide the WP default block padding warnings in our hero */
+.editor-styles-wrapper .page-hero { background: var(--jiwf-ivory-warm); }

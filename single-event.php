@@ -85,7 +85,7 @@ while ( have_posts() ) :
 					esc_html( $lang === 'ja' ? '予約サイトへ' : 'Reserve' )
 				);
 			} else {
-				jiwf_cta_button( $lang === 'ja' ? 'お問い合わせ' : 'Contact Us', jiwf_contact_url(), 'btn--on-dark' );
+				jiwf_cta_button( $lang === 'ja' ? 'お問い合わせ' : 'Contact Us', add_query_arg( array( 'inquiry' => 'event', 'event' => rawurlencode( get_the_title() ) ), jiwf_contact_url() ), 'btn--on-dark' );
 			}
 			?>
 		</div>

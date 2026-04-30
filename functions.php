@@ -21,3 +21,4 @@ require_once JIWF_THEME_DIR . '/inc/meta-boxes.php';
 require_once JIWF_THEME_DIR . '/inc/customizer.php';
 require_once JIWF_THEME_DIR . '/inc/helpers.php';
 require_once JIWF_THEME_DIR . '/inc/shortcodes.php';
+require_once JIWF_THEME_DIR . '/inc/block-patterns.php';

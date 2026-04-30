@@ -87,8 +87,42 @@ WordPress コアのみで動作します。ACF などの追加プラグインは
 ## 編集者向けワークフロー
 
 1. **外観 → カスタマイズ → JIWF Academy** … タグライン、ヒーロー画像、富士／ヒマラヤ写真、問合せメール、SNS、ニュースレター埋め込みを設定
-2. **Programs / Events / Faculty / Partners / Locations** … 各投稿の編集画面下部のメタボックスに入力。リピーター項目は1行 = 1エントリ、フィールドは ` \| ` 区切り
-3. **ロゴ** … カスタマイザー → サイト基本情報 → ロゴ。`assets/images/logo.png` をフォールバック画像として同梱可
+2. **固定ページ（About / Locations / Community / Contact）** … 編集画面で `+` → **パターン → JIWF Academy** から下記パターンを差し込んで組み立て
+3. **Programs / Events / Faculty / Partners / Locations CPT** … 各投稿の編集画面下部のメタボックスで構造化データを入力。本文は Gutenberg で自由に編集（パターンも使えます）
+4. **ロゴ** … カスタマイザー → サイト基本情報 → ロゴ。`assets/images/logo.png` をフォールバック画像として同梱可
+
+## ブロックパターン一覧
+
+固定ページ編集中に **`+` ボタン → パターン → JIWF Academy** で挿入できます。
+
+| パターン | 用途 |
+| --- | --- |
+| **About — starter** | About ページの全セクションを一括で挿入（編集してそのまま使えます） |
+| **Community — starter** | Community ページの全セクションを一括挿入 |
+| **Page hero** | 任意のページの上部ヒーロー（eyebrow + 大見出し + リード） |
+| **Statement** | ✦ で挟んだ中央寄せのエディトリアルコピー |
+| **Mission · Vision · Values** | I / II / III ローマ数字付きの3カードグリッド |
+| **Timeline** | 創設ストーリー用の縦タイムライン |
+| **Philosophy** | 4箇条のダーク反転ブロック |
+| **Value strip** | 4本柱（Inner Growth など）の横並びストリップ |
+| **Story trio** | 富士・学び・ヒマラヤの3画像コラム |
+| **Locations preview** | 富士＋ヒマラヤの2カードプレビュー |
+| **Locations — Japan & India split** | 各拠点の左右交互スプリット |
+| **Partners — types + logos** | パートナータイプ別ロゴ列 |
+| **Closing CTA** | 末尾の3ボタン CTA セクション |
+| **Contact — secondary info column** | Contact ページのフォーム横テキスト列 |
+| **Gold divider** | ✦ の単独区切り |
+
+### パターンに含まれるリンク
+
+`/contact/?topic=newsletter` `/contact/?inquiry=partnership` `/contact/?program=...`
+`/contact/?inquiry=event&event=...` のようなクエリ付きリンクが既に組み込まれているので、Contact フォームに JS をフックすれば自動入力ができます（仕様書 §8-7 参照）。
+
+## カラーとフォント（theme.json）
+
+`theme.json` でブランドの全カラー（navy / gold / ivory / rose / sky 等）とフォントサイズ
+（`xs` / `sm` / `base` / `lg` / `xl` / `2xl` / `3xl` / `4xl` / `hero`）を WordPress
+コアに定義済み。Gutenberg のブロック設定からドロップダウンで選択できます。
 
 ## 画像アセット
 

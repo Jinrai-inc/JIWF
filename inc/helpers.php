@@ -121,6 +121,17 @@ function jiwf_parse_rows( $raw, $keys ) {
 }
 
 /**
+ * Polylang shims — let templates call pll__() / pll_e() unconditionally.
+ * If Polylang isn't installed, these fall back to plain strings.
+ */
+if ( ! function_exists( 'pll__' ) ) {
+	function pll__( $string ) { return $string; }
+}
+if ( ! function_exists( 'pll_e' ) ) {
+	function pll_e( $string ) { echo $string; }
+}
+
+/**
  * Current site language code.
  */
 function jiwf_current_lang() {
@@ -250,6 +261,27 @@ function jiwf_value_icon_svg( $name ) {
 		'feather' => '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4c-9 1-15 7-15 16 0 4 2 7 2 7l13-13c2-3 2-7 0-10z"/><path d="M9 27l13-13"/></svg>',
 	);
 	return $svgs[ $name ] ?? '';
+}
+
+/**
+ * Hide past events from the events archive and order by start date.
+ */
+add_action( 'pre_get_posts', 'jiwf_filter_past_events' );
+function jiwf_filter_past_events( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) return;
+	if ( ! is_post_type_archive( 'event' ) ) return;
+
+	$query->set( 'meta_key', 'event_date_start' );
+	$query->set( 'orderby',  'meta_value' );
+	$query->set( 'order',    'ASC' );
+	$query->set( 'meta_query', array(
+		array(
+			'key'     => 'event_date_start',
+			'value'   => current_time( 'Y-m-d\TH:i' ),
+			'compare' => '>=',
+			'type'    => 'CHAR',
+		),
+	) );
 }
 
 /**
