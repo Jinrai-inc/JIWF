@@ -10,8 +10,8 @@ $lang = jiwf_current_lang();
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow' => __( 'Faculty', 'jiwf-academy' ),
-	'title'   => $lang === 'ja' ? '教師たち' : 'Our Teachers.',
+	'eyebrow' => 'Faculty',
+	'title'   => '教師たち',
 ) ); ?>
 
 <section class="section section--ivory">

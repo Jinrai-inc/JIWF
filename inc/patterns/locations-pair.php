@@ -10,14 +10,14 @@ return <<<'HTML'
 <div class="wp-block-columns are-vertically-aligned-center">
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
-<!-- wp:image {"sizeSlug":"large","className":"image-frame"} --><figure class="wp-block-image size-large image-frame"><img alt="Japan — Mt. Fuji"/></figure><!-- /wp:image -->
+<!-- wp:image {"sizeSlug":"large","className":"image-frame"} --><figure class="wp-block-image size-large image-frame"><img alt="日本拠点 — 富士の麓"/></figure><!-- /wp:image -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- wp:paragraph {"className":"eyebrow","fontSize":"xs","style":{"typography":{"letterSpacing":"0.3em","textTransform":"uppercase","fontWeight":"500"}},"textColor":"gold"} --><p class="eyebrow has-gold-color has-text-color has-xs-font-size" style="font-weight:500;letter-spacing:0.3em;text-transform:uppercase">Japan</p><!-- /wp:paragraph -->
-<!-- wp:heading {"fontSize":"3xl","style":{"typography":{"fontStyle":"italic","fontWeight":"400"}}} --><h2 class="wp-block-heading has-3xl-font-size" style="font-style:italic;font-weight:400">At the foot of Mount Fuji</h2><!-- /wp:heading -->
-<!-- wp:paragraph {"fontSize":"lg","textColor":"text-muted"} --><p class="has-text-muted-color has-text-color has-lg-font-size">A place of stillness and study. Seasonal retreats, in-person workshops, and community gatherings — held within sight of the sacred peak.</p><!-- /wp:paragraph -->
+<!-- wp:heading {"fontFamily":"jp-serif","fontSize":"3xl","style":{"typography":{"fontWeight":"500"}}} --><h2 class="wp-block-heading has-jp-serif-font-family has-3xl-font-size" style="font-weight:500">日本拠点 — 富士の麓から</h2><!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"lg","textColor":"text-muted"} --><p class="has-text-muted-color has-text-color has-lg-font-size">日本拠点は、富士山を仰ぐ自然豊かな環境にあります。霊峰の静けさに包まれて学ぶ、季節ごとのリトリートと対面ワークショップの場。</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 </div>
@@ -30,13 +30,13 @@ return <<<'HTML'
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
 <!-- wp:paragraph {"className":"eyebrow","fontSize":"xs","style":{"typography":{"letterSpacing":"0.3em","textTransform":"uppercase","fontWeight":"500"}},"textColor":"gold"} --><p class="eyebrow has-gold-color has-text-color has-xs-font-size" style="font-weight:500;letter-spacing:0.3em;text-transform:uppercase">India</p><!-- /wp:paragraph -->
-<!-- wp:heading {"fontSize":"3xl","style":{"typography":{"fontStyle":"italic","fontWeight":"400"}}} --><h2 class="wp-block-heading has-3xl-font-size" style="font-style:italic;font-weight:400">Within the embrace of the Himalayas</h2><!-- /wp:heading -->
-<!-- wp:paragraph {"fontSize":"lg","textColor":"text-muted"} --><p class="has-text-muted-color has-text-color has-lg-font-size">A place to touch the source. International retreats, dialogues with local faculty, and pilgrimages to the lands where the wisdom was first heard.</p><!-- /wp:paragraph -->
+<!-- wp:heading {"fontFamily":"jp-serif","fontSize":"3xl","style":{"typography":{"fontWeight":"500"}}} --><h2 class="wp-block-heading has-jp-serif-font-family has-3xl-font-size" style="font-weight:500">インド拠点 — ヒマラヤの懐に抱かれて</h2><!-- /wp:heading -->
+<!-- wp:paragraph {"fontSize":"lg","textColor":"text-muted"} --><p class="has-text-muted-color has-text-color has-lg-font-size">インド拠点は、ヒマラヤ山脈の麓、ヨガと智慧の故郷にあります。古代から続く瞑想の伝統に触れる、国際リトリートとディープ・ジャーニーの場。</p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center">
-<!-- wp:image {"sizeSlug":"large","className":"image-frame"} --><figure class="wp-block-image size-large image-frame"><img alt="India — Himalayas"/></figure><!-- /wp:image -->
+<!-- wp:image {"sizeSlug":"large","className":"image-frame"} --><figure class="wp-block-image size-large image-frame"><img alt="インド拠点 — ヒマラヤ"/></figure><!-- /wp:image -->
 </div>
 <!-- /wp:column -->
 </div>

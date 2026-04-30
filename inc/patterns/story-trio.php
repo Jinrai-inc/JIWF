@@ -1,6 +1,6 @@
 <?php
 /**
- * Story trio — three image columns (Stillness / Wisdom / Grandeur).
+ * Story trio — three image columns (静謐 / 智慧 / 壮大).
  * Editors should drag image blocks into the placeholders.
  */
 return <<<'HTML'
@@ -12,22 +12,22 @@ return <<<'HTML'
 
 <!-- wp:column {"className":"story-trio__item"} -->
 <div class="wp-block-column story-trio__item">
-<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="Stillness"/></figure><!-- /wp:image -->
-<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"display","fontSize":"2xl","style":{"typography":{"fontStyle":"italic"}}} --><p class="has-text-align-center story-trio__label has-display-font-family has-2xl-font-size" style="font-style:italic"><em>Stillness</em><br><small>静謐</small></p><!-- /wp:paragraph -->
+<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="静謐"/></figure><!-- /wp:image -->
+<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"jp-serif","fontSize":"2xl","style":{"typography":{"fontWeight":"500"}}} --><p class="has-text-align-center story-trio__label has-jp-serif-font-family has-2xl-font-size" style="font-weight:500"><em>静謐</em><br><small>Stillness</small></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
 <!-- wp:column {"className":"story-trio__item"} -->
 <div class="wp-block-column story-trio__item">
-<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="Wisdom"/></figure><!-- /wp:image -->
-<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"display","fontSize":"2xl","style":{"typography":{"fontStyle":"italic"}}} --><p class="has-text-align-center story-trio__label has-display-font-family has-2xl-font-size" style="font-style:italic"><em>Wisdom</em><br><small>智慧</small></p><!-- /wp:paragraph -->
+<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="智慧"/></figure><!-- /wp:image -->
+<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"jp-serif","fontSize":"2xl","style":{"typography":{"fontWeight":"500"}}} --><p class="has-text-align-center story-trio__label has-jp-serif-font-family has-2xl-font-size" style="font-weight:500"><em>智慧</em><br><small>Wisdom</small></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
 <!-- wp:column {"className":"story-trio__item"} -->
 <div class="wp-block-column story-trio__item">
-<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="Grandeur"/></figure><!-- /wp:image -->
-<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"display","fontSize":"2xl","style":{"typography":{"fontStyle":"italic"}}} --><p class="has-text-align-center story-trio__label has-display-font-family has-2xl-font-size" style="font-style:italic"><em>Grandeur</em><br><small>壮大</small></p><!-- /wp:paragraph -->
+<!-- wp:image {"className":"story-trio__image","sizeSlug":"large"} --><figure class="wp-block-image size-large story-trio__image"><img alt="壮大"/></figure><!-- /wp:image -->
+<!-- wp:paragraph {"align":"center","className":"story-trio__label","fontFamily":"jp-serif","fontSize":"2xl","style":{"typography":{"fontWeight":"500"}}} --><p class="has-text-align-center story-trio__label has-jp-serif-font-family has-2xl-font-size" style="font-weight:500"><em>壮大</em><br><small>Grandeur</small></p><!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 

@@ -10,11 +10,9 @@ $lang = jiwf_current_lang();
 ?>
 
 <?php get_template_part( 'template-parts/hero/hero-page', null, array(
-	'eyebrow'       => __( 'Programs', 'jiwf-academy' ),
-	'title'         => $lang === 'ja' ? '智慧の5つの柱' : 'Five Pillars of Wisdom.',
-	'lead'          => $lang === 'ja'
-		? '人生をつくる5つの学びの柱。あなたが今、必要としている扉を選んでください。'
-		: 'Five doors into a life of wisdom. Step through whichever calls to you.',
+	'eyebrow'       => 'Programs',
+	'title'         => '智慧の5つの柱',
+	'lead'          => '人生をつくる5つの学びの柱。今あなたが必要としている扉を選んでください。',
 	'image_setting' => 'jiwf_page_hero_programs',
 ) ); ?>
 

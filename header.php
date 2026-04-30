@@ -42,12 +42,12 @@
 				) );
 			} else {
 				$nav_items = array(
-					array( 'page' => 'about',     'label' => __( 'About', 'jiwf-academy' ) ),
-					array( 'cpt'  => 'program',   'label' => __( 'Programs', 'jiwf-academy' ) ),
-					array( 'page' => 'campus',    'label' => __( 'Locations', 'jiwf-academy' ) ),
-					array( 'page' => 'community', 'label' => __( 'Community', 'jiwf-academy' ) ),
-					array( 'cpt'  => 'event',     'label' => __( 'Events', 'jiwf-academy' ) ),
-					array( 'page' => 'contact',   'label' => __( 'Contact', 'jiwf-academy' ) ),
+					array( 'page' => 'about',     'label' => '私たちについて' ),
+					array( 'cpt'  => 'program',   'label' => 'プログラム' ),
+					array( 'page' => 'campus',    'label' => '拠点' ),
+					array( 'page' => 'community', 'label' => 'コミュニティ' ),
+					array( 'cpt'  => 'event',     'label' => 'イベント' ),
+					array( 'page' => 'contact',   'label' => 'お問い合わせ' ),
 				);
 				$rendered = array();
 				foreach ( $nav_items as $item ) {

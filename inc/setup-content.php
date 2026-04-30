@@ -20,8 +20,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'after_switch_theme', 'jiwf_install_starter_content' );
 function jiwf_install_starter_content() {
 	$pages = jiwf_seed_pages();
+	jiwf_seed_programs();
+	jiwf_seed_events();
 	jiwf_seed_primary_menu( $pages );
 	update_option( 'jiwf_content_seeded', JIWF_THEME_VERSION );
+	// Defer the rewrite flush until CPTs are registered on the next init.
+	update_option( 'jiwf_needs_rewrite_flush', '1' );
+}
+
+/**
+ * Flush rewrite rules once after CPTs are registered, then clear the flag.
+ * Without this the /programs/ and /events/ archive URLs return 404 on a
+ * fresh activation.
+ */
+add_action( 'init', 'jiwf_maybe_flush_rewrites', 99 );
+function jiwf_maybe_flush_rewrites() {
+	if ( get_option( 'jiwf_needs_rewrite_flush' ) !== '1' ) return;
+	flush_rewrite_rules( false );
+	delete_option( 'jiwf_needs_rewrite_flush' );
 }
 
 /**
@@ -53,12 +69,12 @@ function jiwf_pattern_markup( $slug ) {
  */
 function jiwf_legal_placeholder( $kind ) {
 	$intro = $kind === 'privacy'
-		? '<p><strong>TODO:</strong> Replace this placeholder with the lawyer-reviewed Privacy Policy before going live.</p>'
-		: '<p><strong>TODO:</strong> Replace this placeholder with the lawyer-reviewed Terms of Use before going live.</p>';
+		? '<p><strong>TODO：</strong>公開前に、弁護士・法務担当者によるレビュー済みのプライバシーポリシー本文に差し替えてください。</p>'
+		: '<p><strong>TODO：</strong>公開前に、弁護士・法務担当者によるレビュー済みの利用規約本文に差し替えてください。</p>';
 
 	$body = $kind === 'privacy'
-		? '<p>JIWF Academy collects only the personal data needed to respond to enquiries, deliver newsletters, and operate its programs. We do not sell or share personal data with third parties beyond the service providers required to run the site.</p>'
-		: '<p>By using this site you agree to engage with its content in good faith. The materials published here are for educational and informational purposes only.</p>';
+		? '<p>JIWF Academy は、お問い合わせ対応、ニュースレター配信、各種プログラム運営に必要な範囲でのみ個人情報を取得します。サイト運営に必要な業務委託先を除き、第三者への提供・販売は行いません。</p>'
+		: '<p>当サイトのコンテンツをご利用いただくにあたり、誠実にお取り扱いいただくことに同意いただいたものとみなします。掲載情報は教育・参考目的のものです。</p>';
 
 	return <<<HTML
 <!-- wp:paragraph -->
@@ -66,7 +82,7 @@ function jiwf_legal_placeholder( $kind ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading">Overview</h2>
+<h2 class="wp-block-heading">概要</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -90,37 +106,37 @@ function jiwf_seed_pages() {
 
 	$contact_form_placeholder = <<<HTML
 <!-- wp:paragraph -->
-<p><em>Tip: install Contact Form 7 (free), build your form, and paste its shortcode here — e.g. <code>[contact-form-7 id="123" title="Contact"]</code>.</em></p>
+<p><em>ヒント：無料プラグイン Contact Form 7 をインストールしフォームを作成、ショートコードをここに貼り付けてください。例：<code>[contact-form-7 id="123" title="お問い合わせ"]</code></em></p>
 <!-- /wp:paragraph -->
 HTML;
 
 	$pages = array(
 		'about' => array(
-			'title'    => 'About',
+			'title'    => '私たちについて',
 			'template' => 'page-about.php',
 			'content'  => $pattern( 'about-starter' ),
 		),
 		'campus' => array(
-			'title'    => 'Locations',
+			'title'    => '拠点',
 			'template' => 'page-locations.php',
 			'content'  => $pattern( 'page-hero', 'locations-pair', 'closing-cta' ),
 		),
 		'community' => array(
-			'title'    => 'Community',
+			'title'    => 'コミュニティ',
 			'template' => 'page-community.php',
 			'content'  => $pattern( 'community-starter' ),
 		),
 		'contact' => array(
-			'title'    => 'Contact',
+			'title'    => 'お問い合わせ',
 			'template' => 'page-contact.php',
 			'content'  => $pattern( 'page-hero', 'contact-meta' ) . "\n\n" . $contact_form_placeholder,
 		),
 		'privacy' => array(
-			'title'   => 'Privacy Policy',
+			'title'   => 'プライバシーポリシー',
 			'content' => jiwf_legal_placeholder( 'privacy' ),
 		),
 		'terms' => array(
-			'title'   => 'Terms of Use',
+			'title'   => '利用規約',
 			'content' => jiwf_legal_placeholder( 'terms' ),
 		),
 	);
@@ -153,6 +169,114 @@ HTML;
 }
 
 /**
+ * Seed the five Five-Pillars programs as published `program` posts.
+ * Idempotent — skips programs whose slug already exists.
+ */
+function jiwf_seed_programs() {
+	$programs = array(
+		'gita-wisdom' => array(
+			'title'      => 'ギーターの智慧',
+			'subtitle'   => 'Universal Wisdom for Daily Life',
+			'menu_order' => 1,
+			'excerpt'    => 'バガヴァッド・ギーターの普遍の智慧を、現代の人生に活かす12週間。',
+			'icon'       => 'lotus',
+			'tone'       => 'rose',
+			'body'       => '<p>バガヴァッド・ギーターは、5,000年以上にわたり人類の道しるべとなってきた古代インドの聖典です。本プログラムでは、その智慧を現代日本に生きる女性のリーダーシップに統合します。</p><p>毎週のリーディング、対話、瞑想を通じて、人生の目的、倫理的行動、内なる明晰さを育みます。</p>',
+		),
+		'yoga-wellbeing' => array(
+			'title'      => 'ヨガとウェルビーイング',
+			'subtitle'   => 'Harmony of Body, Mind, and Spirit',
+			'menu_order' => 2,
+			'excerpt'    => '身体・心・精神を整え、活力としなやかさ、調和を育む8週間。',
+			'icon'       => 'feather',
+			'tone'       => 'gold',
+			'body'       => '<p>ヨガ・呼吸法・アーユルヴェーダの智慧を通じて、心身のバランスを取り戻します。</p><p>朝のプラクティス、瞑想、食と生活のセルフケアを段階的に身につけ、忙しい日常の中でも自分の中心に戻れる力を養います。</p>',
+		),
+		'leadership' => array(
+			'title'      => 'リーダーシップ開発',
+			'subtitle'   => 'Lead with Wisdom and Compassion',
+			'menu_order' => 3,
+			'excerpt'    => '智慧と慈愛に根ざしたリーダーシップを学ぶ16週間。',
+			'icon'       => 'heart',
+			'tone'       => 'rose',
+			'body'       => '<p>権力ではなく、智慧と慈愛に根ざしたリーダーシップ。意思決定、コミュニケーション、コンフリクト・マネジメント、ビジョン構築。</p><p>月1回のコーチング、対面リトリート2回を含む集中プログラムです。</p>',
+		),
+		'global-collaboration' => array(
+			'title'      => 'グローバル共創',
+			'subtitle'   => 'Bridging East and West',
+			'menu_order' => 4,
+			'excerpt'    => '国境・文化・宗教を越えて共創する力を養う12週間。',
+			'icon'       => 'globe',
+			'tone'       => 'sky',
+			'body'       => '<p>日本とインド、そして世界をつなぐネットワークの中で、文化的感受性、英語コミュニケーション、異文化共創のスキルを育みます。</p><p>国際リトリート1回を含むハイブリッド型プログラム。</p>',
+		),
+		'social-impact' => array(
+			'title'      => 'ソーシャル・インパクトと起業',
+			'subtitle'   => 'From Vision to Action',
+			'menu_order' => 5,
+			'excerpt'    => '社会課題を解決し、持続可能な未来を創る20週間。',
+			'icon'       => 'sun',
+			'tone'       => 'navy',
+			'body'       => '<p>個人の使命を、具体的な事業・プロジェクトの形にしていくプログラム。事業設計、資金調達、インパクト測定までを包括的に学びます。</p><p>修了時には自身のプロトタイプを発表します。</p>',
+		),
+	);
+
+	foreach ( $programs as $slug => $data ) {
+		$existing = get_page_by_path( $slug, OBJECT, 'program' );
+		if ( $existing instanceof WP_Post ) continue;
+
+		$content = '<!-- wp:paragraph -->' . $data['body'] . '<!-- /wp:paragraph -->';
+
+		$post_id = wp_insert_post( array(
+			'post_type'    => 'program',
+			'post_status'  => 'publish',
+			'post_title'   => $data['title'],
+			'post_name'    => $slug,
+			'post_excerpt' => $data['excerpt'],
+			'post_content' => $content,
+			'menu_order'   => $data['menu_order'],
+		) );
+		if ( is_wp_error( $post_id ) || ! $post_id ) continue;
+
+		update_post_meta( $post_id, 'subtitle', $data['subtitle'] );
+	}
+}
+
+/**
+ * Seed a placeholder "Coming Soon" event so the /events/ archive has at
+ * least one row to display. Skipped if the post type already has any
+ * published event.
+ */
+function jiwf_seed_events() {
+	$has_event = get_posts( array(
+		'post_type'      => 'event',
+		'post_status'    => 'publish',
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+	) );
+	if ( $has_event ) return;
+
+	$start = date( 'Y-m-d\TH:i', strtotime( '+90 days 10:00' ) );
+	$end   = date( 'Y-m-d\TH:i', strtotime( '+90 days 17:00' ) );
+
+	$post_id = wp_insert_post( array(
+		'post_type'    => 'event',
+		'post_status'  => 'publish',
+		'post_title'   => '近日公開：JIWF Academy 開校記念リトリート',
+		'post_name'    => 'opening-retreat',
+		'post_excerpt' => '富士の麓で開かれる、JIWF Academy の開校を祝うリトリート。詳細は近日中に公開いたします。',
+		'post_content' => '<!-- wp:paragraph --><p>本イベントの詳細は、近日中にこちらに掲載いたします。最新情報をお見逃しなく。</p><!-- /wp:paragraph -->',
+	) );
+	if ( is_wp_error( $post_id ) || ! $post_id ) return;
+
+	update_post_meta( $post_id, 'event_date_start',    $start );
+	update_post_meta( $post_id, 'event_date_end',      $end );
+	update_post_meta( $post_id, 'event_location',      '日本拠点（富士の麓）' );
+	update_post_meta( $post_id, 'event_address',       '※詳細は決まり次第ご案内します' );
+	update_post_meta( $post_id, 'application_method', 'contact' );
+}
+
+/**
  * Seed the Primary nav menu and assign it to the `primary` location.
  */
 function jiwf_seed_primary_menu( array $pages ) {
@@ -170,12 +294,12 @@ function jiwf_seed_primary_menu( array $pages ) {
 
 	if ( empty( $existing_items ) ) {
 		$items = array(
-			array( 'type' => 'page',    'key' => 'about',     'title' => __( 'About', 'jiwf-academy' ) ),
-			array( 'type' => 'archive', 'object' => 'program', 'title' => __( 'Programs', 'jiwf-academy' ) ),
-			array( 'type' => 'page',    'key' => 'campus',    'title' => __( 'Locations', 'jiwf-academy' ) ),
-			array( 'type' => 'page',    'key' => 'community', 'title' => __( 'Community', 'jiwf-academy' ) ),
-			array( 'type' => 'archive', 'object' => 'event',  'title' => __( 'Events', 'jiwf-academy' ) ),
-			array( 'type' => 'page',    'key' => 'contact',   'title' => __( 'Contact', 'jiwf-academy' ) ),
+			array( 'type' => 'page',    'key' => 'about',      'title' => '私たちについて' ),
+			array( 'type' => 'archive', 'object' => 'program', 'title' => 'プログラム' ),
+			array( 'type' => 'page',    'key' => 'campus',     'title' => '拠点' ),
+			array( 'type' => 'page',    'key' => 'community',  'title' => 'コミュニティ' ),
+			array( 'type' => 'archive', 'object' => 'event',   'title' => 'イベント' ),
+			array( 'type' => 'page',    'key' => 'contact',    'title' => 'お問い合わせ' ),
 		);
 
 		$position = 1;
@@ -217,7 +341,7 @@ function jiwf_seed_primary_menu( array $pages ) {
 		if ( ! is_wp_error( $legal_id ) ) {
 			$legal_existing = wp_get_nav_menu_items( $legal_id );
 			if ( empty( $legal_existing ) ) {
-				foreach ( array( 'privacy' => __( 'Privacy', 'jiwf-academy' ), 'terms' => __( 'Terms', 'jiwf-academy' ) ) as $key => $label ) {
+				foreach ( array( 'privacy' => 'プライバシーポリシー', 'terms' => '利用規約' ) as $key => $label ) {
 					$page_id = $pages[ $key ] ?? 0;
 					if ( ! $page_id ) continue;
 					wp_update_nav_menu_item( $legal_id, 0, array(
