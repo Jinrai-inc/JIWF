@@ -118,6 +118,41 @@ WordPress コアのみで動作します。ACF などの追加プラグインは
 `/contact/?topic=newsletter` `/contact/?inquiry=partnership` `/contact/?program=...`
 `/contact/?inquiry=event&event=...` のようなクエリ付きリンクが既に組み込まれているので、Contact フォームに JS をフックすれば自動入力ができます（仕様書 §8-7 参照）。
 
+## 日本語 / 英語の切り替え（プラグイン不要）
+
+### 仕組み
+
+- ヘッダー右の **JP / EN** リンクは `?lang=ja` `?lang=en` をクエリに付けて遷移し、その値を Cookie (`jiwf_lang`、1年間有効) に保存します
+- 以降、URL にクエリが無くても Cookie の言語で表示されます。デフォルトは日本語
+- `<html lang>` 属性とフォントスタックも自動で切り替わります（明朝体 ↔ Cormorant 等）
+- Polylang をインストールした場合は自動的にそちらが優先されます
+
+### コンテンツの紐付け（編集者作業）
+
+各固定ページ・CPT 投稿の編集画面サイドバーに **「Translations / 翻訳ペア」** メタボックスがあります。
+日本語版の投稿で「英語版の投稿」をプルダウンから選び、英語版の投稿でも逆向きに紐付け
+（自動的にミラーリングされます）。
+
+例:
+
+| 日本語投稿 | 英語投稿 |
+| --- | --- |
+| `About / 私たちについて` | `About` |
+| `Programs アーカイブ` | `Programs archive (English)` |
+
+ヘッダーのスイッチャーをクリックすると、紐付けたペアの URL に飛びます。ペアが
+未設定の場合は同じ URL の言語クエリだけ反転します。
+
+### ブロック編集
+
+英語版の固定ページも Gutenberg で同じパターン（About — starter など）を使えます。
+パターン内のサンプルコピーは英語で書かれているため、日本語版だけ翻訳すれば OK。
+
+### CDN / キャッシュ
+
+`Vary: Cookie` ヘッダを送っているので、CloudFront・WP Rocket・LiteSpeed Cache な
+どが日英ミックスのキャッシュを返すことはありません。
+
 ## カラーとフォント（theme.json）
 
 `theme.json` でブランドの全カラー（navy / gold / ivory / rose / sky 等）とフォントサイズ

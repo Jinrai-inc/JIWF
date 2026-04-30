@@ -132,14 +132,18 @@ if ( ! function_exists( 'pll_e' ) ) {
 }
 
 /**
- * Current site language code.
+ * Current site language code (delegates to inc/i18n.php).
  */
 function jiwf_current_lang() {
-	if ( function_exists( 'pll_current_language' ) ) {
-		return pll_current_language();
+	static $cached = null;
+	if ( $cached !== null ) return $cached;
+	if ( function_exists( 'jiwf_resolve_language' ) ) {
+		$cached = jiwf_resolve_language();
+	} else {
+		$locale = get_locale();
+		$cached = ( strpos( $locale, 'ja' ) === 0 ) ? 'ja' : 'en';
 	}
-	$locale = get_locale();
-	return ( strpos( $locale, 'ja' ) === 0 ) ? 'ja' : 'en';
+	return $cached;
 }
 
 /**
@@ -181,7 +185,10 @@ function jiwf_brand_statement() {
 }
 
 /**
- * Language switcher (Polylang aware, with text fallback).
+ * Language switcher.
+ * - Uses Polylang's data when available.
+ * - Otherwise renders ?lang=ja|en links to the paired post (or to the
+ *   same URL with the lang flag flipped if no pair is set).
  */
 function jiwf_language_switcher() {
 	if ( function_exists( 'pll_the_languages' ) ) {
@@ -201,9 +208,25 @@ function jiwf_language_switcher() {
 		return;
 	}
 
+	$current = jiwf_current_lang();
+	$pairs   = array(
+		'ja' => array( 'label' => 'JP', 'hreflang' => 'ja' ),
+		'en' => array( 'label' => 'EN', 'hreflang' => 'en' ),
+	);
+
 	echo '<ul class="lang-switch" aria-label="' . esc_attr__( 'Language', 'jiwf-academy' ) . '">';
-	echo '<li class="lang-switch__item is-active"><span>JP</span></li>';
-	echo '<li class="lang-switch__item"><span>EN</span></li>';
+	foreach ( $pairs as $slug => $meta ) {
+		$is_active = ( $current === $slug );
+		$url = function_exists( 'jiwf_current_url_in_lang' ) ? jiwf_current_url_in_lang( $slug ) : '#';
+		printf(
+			'<li class="lang-switch__item%1$s"><a href="%2$s" hreflang="%3$s" lang="%3$s" rel="alternate"%4$s>%5$s</a></li>',
+			$is_active ? ' is-active' : '',
+			esc_url( $url ),
+			esc_attr( $meta['hreflang'] ),
+			$is_active ? ' aria-current="true"' : '',
+			esc_html( $meta['label'] )
+		);
+	}
 	echo '</ul>';
 }
 
