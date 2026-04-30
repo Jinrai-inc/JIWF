@@ -1,0 +1,35 @@
+/* ============================================================
+   Gold divider with symbol
+   ============================================================ */
+
+.jiwf-divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-md);
+	margin: var(--space-xl) auto;
+	max-width: 320px;
+}
+
+.jiwf-divider__line {
+	flex: 1;
+	height: 1px;
+	background: var(--jiwf-gold);
+	opacity: 0.5;
+}
+
+.jiwf-divider__symbol {
+	color: var(--jiwf-gold);
+	font-size: 14px;
+	letter-spacing: 0.2em;
+}
+
+.jiwf-divider--on-dark .jiwf-divider__line,
+.jiwf-divider--on-dark .jiwf-divider__symbol {
+	color: var(--jiwf-gold-light);
+	background: var(--jiwf-gold-light);
+}
+
+.jiwf-divider--on-dark .jiwf-divider__symbol {
+	background: transparent;
+}

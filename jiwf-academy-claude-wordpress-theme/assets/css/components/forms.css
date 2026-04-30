@@ -1,0 +1,79 @@
+/* ============================================================
+   Forms (Contact Form 7 friendly)
+   ============================================================ */
+
+.jiwf-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	max-width: 640px;
+}
+
+.jiwf-form__row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--space-md);
+}
+
+@media (max-width: 600px) {
+	.jiwf-form__row { grid-template-columns: 1fr; }
+}
+
+.jiwf-form label,
+.wpcf7 label {
+	display: block;
+	font-size: var(--text-xs);
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--jiwf-text-muted);
+	margin-bottom: var(--space-2xs);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea,
+.wpcf7-form-control:not(.wpcf7-submit) {
+	width: 100%;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--jiwf-line);
+	padding: var(--space-sm) 0;
+	font-family: inherit;
+	font-size: var(--text-base);
+	color: var(--jiwf-navy);
+	transition: border-color var(--dur-base) var(--ease-out);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.wpcf7-form-control:focus {
+	outline: 0;
+	border-bottom-color: var(--jiwf-gold);
+}
+
+textarea { min-height: 160px; resize: vertical; }
+
+.wpcf7-submit {
+	background: var(--jiwf-navy);
+	color: var(--jiwf-ivory);
+	border: 1px solid var(--jiwf-navy);
+	padding: 18px 32px;
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background var(--dur-base) var(--ease-out);
+}
+
+.wpcf7-submit:hover { background: var(--jiwf-navy-deep); }
+
+.wpcf7 .wpcf7-not-valid-tip {
+	color: var(--jiwf-rose-deep);
+	font-size: var(--text-xs);
+}

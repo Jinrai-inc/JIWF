@@ -1,0 +1,77 @@
+/* ============================================================
+   JIWF Academy — Design Tokens
+   ============================================================ */
+
+:root {
+	/* === Primary Palette === */
+	--jiwf-navy:       #14213D;
+	--jiwf-navy-deep:  #0A1628;
+	--jiwf-gold:       #C9A961;
+	--jiwf-gold-light: #E5D2A0;
+
+	/* === Secondary Palette === */
+	--jiwf-ivory:      #FAF7F0;
+	--jiwf-ivory-warm: #F5EFE0;
+	--jiwf-rose:       #E8C5C5;
+	--jiwf-rose-deep:  #D4A5A5;
+	--jiwf-sky:        #B8D4E3;
+	--jiwf-sky-soft:   #DDE9F0;
+
+	/* === Neutral Palette === */
+	--jiwf-text:       #2A2A3E;
+	--jiwf-text-muted: #6B6B7E;
+	--jiwf-line:       #E8E2D5;
+	--jiwf-white:      #FFFFFF;
+
+	/* === Typography === */
+	--font-display:  'Cormorant Garamond', 'Shippori Mincho', serif;
+	--font-body:     'Inter', 'Zen Kaku Gothic New', sans-serif;
+	--font-jp-serif: 'Shippori Mincho', 'Cormorant Garamond', serif;
+	--font-jp-body:  'Zen Kaku Gothic New', 'Inter', sans-serif;
+
+	--text-xs:    0.75rem;
+	--text-sm:    0.875rem;
+	--text-base:  1rem;
+	--text-lg:    1.125rem;
+	--text-xl:    clamp(1.25rem, 1.5vw, 1.5rem);
+	--text-2xl:   clamp(1.5rem, 2vw, 2rem);
+	--text-3xl:   clamp(2rem, 3vw, 2.75rem);
+	--text-4xl:   clamp(2.5rem, 4vw, 3.75rem);
+	--text-hero:  clamp(3rem, 6vw, 5.5rem);
+	--text-mega:  clamp(4rem, 9vw, 8rem);
+
+	/* === Spacing === */
+	--space-3xs:  4px;
+	--space-2xs:  8px;
+	--space-xs:   12px;
+	--space-sm:   16px;
+	--space-md:   24px;
+	--space-lg:   40px;
+	--space-xl:   64px;
+	--space-2xl:  96px;
+	--space-3xl:  128px;
+	--space-4xl:  160px;
+
+	/* === Radius / Shadows === */
+	--radius-sm:   4px;
+	--radius-md:   8px;
+	--radius-lg:   16px;
+	--radius-pill: 999px;
+
+	--shadow-sm:   0 1px 3px rgba(20, 33, 61, 0.06);
+	--shadow-md:   0 8px 24px rgba(20, 33, 61, 0.08);
+	--shadow-lg:   0 24px 48px rgba(20, 33, 61, 0.12);
+	--shadow-gold: 0 8px 32px rgba(201, 169, 97, 0.18);
+
+	/* === Layout === */
+	--container-narrow: 720px;
+	--container:        1200px;
+	--container-wide:   1440px;
+	--header-height:    88px;
+
+	/* === Motion === */
+	--ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+	--dur-fast: 200ms;
+	--dur-base: 400ms;
+	--dur-slow: 800ms;
+}

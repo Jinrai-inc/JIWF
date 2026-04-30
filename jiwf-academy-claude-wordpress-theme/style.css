@@ -1,0 +1,17 @@
+/*
+Theme Name: JIWF Academy
+Theme URI: https://jiwf-academy.org/
+Author: Jinrai Co., Ltd.
+Author URI: https://jinrai.co.jp/
+Description: Official WordPress theme for JIWF Academy — a digital campus expressing the brand world of "One Wisdom, One World." Phase 1 brand site with bilingual (JP/EN) support via Polylang. Built as a custom classic theme using ACF + CPT for editorial flexibility.
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.7
+Requires PHP: 8.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: jiwf-academy
+Tags: editorial, multilingual, custom-colors, custom-menu, featured-images, translation-ready
+*/
+
+/* All visual styles live in assets/css/. This file is required by WordPress for theme metadata only. */

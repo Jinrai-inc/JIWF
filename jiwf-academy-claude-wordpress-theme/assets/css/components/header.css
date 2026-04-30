@@ -1,0 +1,189 @@
+/* ============================================================
+   Site header
+   ============================================================ */
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background: rgba(250, 247, 240, 0.92);
+	backdrop-filter: saturate(140%) blur(12px);
+	-webkit-backdrop-filter: saturate(140%) blur(12px);
+	border-bottom: 1px solid transparent;
+	transition: border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+
+.site-header.is-scrolled {
+	border-bottom-color: var(--jiwf-line);
+}
+
+.site-header__inner {
+	max-width: var(--container-wide);
+	margin: 0 auto;
+	padding: var(--space-md) clamp(20px, 4vw, 48px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	min-height: var(--header-height);
+}
+
+.site-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2xs);
+	font-family: var(--font-display);
+	font-weight: 500;
+	color: var(--jiwf-navy);
+	font-size: var(--text-lg);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.site-brand img {
+	max-height: 40px;
+	width: auto;
+}
+
+.site-brand__sub {
+	font-size: 0.7em;
+	letter-spacing: 0.3em;
+	color: var(--jiwf-gold);
+	font-weight: 400;
+	display: block;
+	margin-top: 2px;
+}
+
+.primary-nav {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+}
+
+.primary-nav__list {
+	display: flex;
+	gap: clamp(var(--space-md), 3vw, var(--space-xl));
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.primary-nav__list a {
+	font-size: var(--text-sm);
+	font-weight: 400;
+	letter-spacing: 0.08em;
+	color: var(--jiwf-text);
+	text-transform: uppercase;
+	position: relative;
+	padding: 4px 0;
+}
+
+.primary-nav__list a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 1px;
+	background: var(--jiwf-gold);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--dur-base) var(--ease-out);
+}
+
+.primary-nav__list a:hover::after,
+.primary-nav__list .current-menu-item > a::after {
+	transform: scaleX(1);
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+}
+
+.lang-switch {
+	display: inline-flex;
+	gap: var(--space-2xs);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: var(--text-xs);
+	letter-spacing: 0.2em;
+}
+
+.lang-switch__item a,
+.lang-switch__item span {
+	color: var(--jiwf-text-muted);
+	padding: 4px 6px;
+}
+
+.lang-switch__item.is-active a,
+.lang-switch__item.is-active span {
+	color: var(--jiwf-navy);
+	border-bottom: 1px solid var(--jiwf-gold);
+}
+
+/* === Mobile === */
+.nav-toggle {
+	display: none;
+	width: 36px;
+	height: 36px;
+	position: relative;
+	color: var(--jiwf-navy);
+}
+
+.nav-toggle__bar {
+	position: absolute;
+	left: 6px;
+	right: 6px;
+	height: 1px;
+	background: currentColor;
+	transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+
+.nav-toggle__bar:nth-child(1) { top: 12px; }
+.nav-toggle__bar:nth-child(2) { top: 18px; }
+.nav-toggle__bar:nth-child(3) { top: 24px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+	transform: translateY(6px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+	transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 960px) {
+	.nav-toggle { display: block; }
+
+	.primary-nav,
+	.site-header__actions .btn,
+	.site-header__actions .lang-switch {
+		display: none;
+	}
+
+	.site-header.is-open .primary-nav {
+		display: flex;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: var(--jiwf-ivory);
+		flex-direction: column;
+		padding: var(--space-lg) var(--space-md);
+		border-bottom: 1px solid var(--jiwf-line);
+	}
+
+	.site-header.is-open .primary-nav__list {
+		flex-direction: column;
+		gap: var(--space-md);
+		text-align: center;
+		width: 100%;
+	}
+
+	.site-header.is-open .site-header__actions .btn,
+	.site-header.is-open .site-header__actions .lang-switch {
+		display: inline-flex;
+	}
+}
