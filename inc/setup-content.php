@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'after_switch_theme', 'jiwf_install_starter_content' );
-function jiwf_install_starter_content() {
-	$pages = jiwf_seed_pages();
+function jiwf_install_starter_content( $force = false ) {
+	$pages = jiwf_seed_pages( $force );
 	jiwf_seed_programs();
 	jiwf_seed_events();
 	jiwf_seed_primary_menu( $pages );
@@ -47,16 +47,26 @@ function jiwf_maybe_flush_rewrites() {
 }
 
 /**
- * Re-run the seed manually by visiting /wp-admin/?jiwf_seed=1
- * (useful if the theme was activated before this code shipped).
+ * Re-run the seed manually.
+ *
+ *   /wp-admin/?jiwf_seed=1      — idempotent: only adds missing pages
+ *   /wp-admin/?jiwf_seed=force  — also overwrites existing seed pages'
+ *                                 body content with the latest patterns
+ *                                 (use after pattern updates)
  */
 add_action( 'admin_init', 'jiwf_maybe_reseed' );
 function jiwf_maybe_reseed() {
 	if ( ! current_user_can( 'manage_options' ) ) return;
 	if ( empty( $_GET['jiwf_seed'] ) ) return;
-	jiwf_install_starter_content();
-	add_action( 'admin_notices', function () {
-		echo '<div class="notice notice-success is-dismissible"><p><strong>JIWF Academy:</strong> Sample pages and primary menu seeded.</p></div>';
+
+	$force = $_GET['jiwf_seed'] === 'force';
+	jiwf_install_starter_content( $force );
+
+	add_action( 'admin_notices', function () use ( $force ) {
+		$msg = $force
+			? __( 'Pages and CPT seeds refreshed (existing page bodies overwritten with the latest patterns).', 'jiwf-academy' )
+			: __( 'Sample pages, programs, events, and primary menu seeded. Visit ?jiwf_seed=force to re-apply pattern changes to existing pages.', 'jiwf-academy' );
+		echo '<div class="notice notice-success is-dismissible"><p><strong>JIWF Academy:</strong> ' . esc_html( $msg ) . '</p></div>';
 	} );
 }
 
@@ -99,8 +109,13 @@ HTML;
 
 /**
  * Seed standard pages. Returns slug => post_id.
+ *
+ * @param bool $force When true, existing pages have their body content
+ *                    overwritten with the latest pattern markup. The
+ *                    page slug, template assignment, and ID are left
+ *                    intact so menu items and SEO links keep working.
  */
-function jiwf_seed_pages() {
+function jiwf_seed_pages( $force = false ) {
 	$pattern = function ( ...$slugs ) {
 		$out = '';
 		foreach ( $slugs as $s ) {
@@ -152,6 +167,15 @@ HTML;
 		$existing = get_page_by_path( $slug, OBJECT, 'page' );
 		if ( $existing instanceof WP_Post ) {
 			$created[ $slug ] = (int) $existing->ID;
+			if ( $force ) {
+				wp_update_post( array(
+					'ID'           => $existing->ID,
+					'post_content' => $data['content'] ?? '',
+				) );
+				if ( ! empty( $data['template'] ) ) {
+					update_post_meta( $existing->ID, '_wp_page_template', $data['template'] );
+				}
+			}
 			continue;
 		}
 
