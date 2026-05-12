@@ -1,13 +1,10 @@
 <?php
 /**
- * Front-page hero — "From Fuji to Himalayas".
+ * Front-page hero — 智慧を生き、未来を創る。
  *
  * @package jiwf-academy
  */
-$tagline = jiwf_tagline();
-$lang    = jiwf_current_lang();
-$motto   = jiwf_setting( 'jiwf_motto', 'One Wisdom, One World' );
-
+$motto    = jiwf_setting( 'jiwf_motto', 'One Wisdom, One World' );
 $has_hero = jiwf_has_image( 'jiwf_home_hero_image', 'images/hero-fuji-himalaya.jpg' );
 ?>
 <section class="hero" aria-label="<?php esc_attr_e( 'Welcome to JIWF Academy', 'jiwf-academy' ); ?>">
@@ -28,24 +25,9 @@ $has_hero = jiwf_has_image( 'jiwf_home_hero_image', 'images/hero-fuji-himalaya.j
 	<div class="hero__overlay"></div>
 
 	<div class="hero__inner fade-in">
-		<span class="hero__eyebrow">JIWF Academy &nbsp;·&nbsp; Japan India Women's Forum</span>
+		<span class="hero__eyebrow">JIWF ACADEMY &nbsp;·&nbsp; <?php echo esc_html( $motto ); ?></span>
 
-		<h1 class="hero__title">
-			<em>From Fuji</em> <em>to Himalayas.</em>
-		</h1>
-
-		<p class="hero__title-jp">
-			<?php
-			echo $lang === 'ja'
-				? 'ふたつの聖地から、ひとつの未来へ。'
-				: 'From two sacred lands, toward one future.';
-			?>
-		</p>
-
-		<p class="hero__tagline-pair">
-			<span class="hero__tagline-en"><em><?php echo esc_html( $tagline['en'] ); ?></em></span>
-			<span class="hero__tagline-jp"><?php echo esc_html( $tagline['jp'] ); ?></span>
-		</p>
+		<h1 class="hero__title hero__title--jp">智慧を生き、未来を創る。</h1>
 
 		<a class="hero__scroll" href="#statement">
 			<span><?php esc_html_e( 'Discover', 'jiwf-academy' ); ?></span>

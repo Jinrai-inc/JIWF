@@ -1,21 +1,26 @@
 <?php
 /**
- * Community / partner row (logos and city names).
+ * Community section — 志を共にする、世界の姉妹たち.
  *
  * @package jiwf-academy
  */
-
 $partners = new WP_Query( array(
 	'post_type'      => 'partner',
 	'posts_per_page' => 12,
 ) );
-$lang = jiwf_current_lang();
 ?>
 <section class="section section--ivory">
 	<div class="container">
 		<div class="section__head fade-up">
-			<span class="eyebrow"><?php esc_html_e( 'Community', 'jiwf-academy' ); ?></span>
-			<h2><?php echo $lang === 'ja' ? '共に歩むパートナー' : '<em>Our Community</em>'; ?></h2>
+			<span class="eyebrow">Community</span>
+			<h2 style="font-family: var(--font-jp-serif); font-weight: 500;">志を共にする、世界の姉妹たち</h2>
+			<p class="lead" style="margin-top: var(--space-md);">
+				起業家、経営者、教育者、チェンジメーカー。<br>
+				世界中の女性たちがここでつながります。
+			</p>
+			<p class="lead" style="margin-top: var(--space-md); color: var(--jiwf-text-muted);">
+				共に学び、共に成長し、共に未来を創ります。
+			</p>
 		</div>
 
 		<div class="partner-row fade-up">

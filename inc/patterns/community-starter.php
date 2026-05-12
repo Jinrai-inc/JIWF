@@ -1,13 +1,13 @@
 <?php
 /**
- * Community page — starter layout (Japanese base).
+ * Community page — starter layout.
  */
 return <<<'HTML'
 <!-- wp:group {"tagName":"section","className":"page-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|80","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"backgroundColor":"ivory-warm","layout":{"type":"constrained"}} -->
 <section class="wp-block-group page-hero has-ivory-warm-background-color has-background" style="padding-top:var(--wp--preset--spacing--90);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--50)">
 <!-- wp:paragraph {"align":"center","fontSize":"xs","style":{"typography":{"letterSpacing":"0.3em","textTransform":"uppercase"}},"textColor":"gold"} --><p class="has-text-align-center has-gold-color has-text-color has-xs-font-size" style="letter-spacing:0.3em;text-transform:uppercase">Community</p><!-- /wp:paragraph -->
-<!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"jp-serif","fontSize":"4xl","style":{"typography":{"fontWeight":"500"}}} --><h1 class="wp-block-heading has-text-align-center has-jp-serif-font-family has-4xl-font-size" style="font-weight:500">共に歩むパートナーたち</h1><!-- /wp:heading -->
-<!-- wp:paragraph {"align":"center","fontSize":"lg","textColor":"text-muted"} --><p class="has-text-align-center has-text-muted-color has-text-color has-lg-font-size">JIWF Academy を支える、世界中のパートナー・スポンサー。</p><!-- /wp:paragraph -->
+<!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"jp-serif","fontSize":"4xl","style":{"typography":{"fontWeight":"500","lineHeight":"1.5"}}} --><h1 class="wp-block-heading has-text-align-center has-jp-serif-font-family has-4xl-font-size" style="font-weight:500;line-height:1.5">志を共にする、世界の姉妹たち</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","fontSize":"lg","style":{"typography":{"lineHeight":"2"}},"textColor":"text-muted"} --><p class="has-text-align-center has-text-muted-color has-text-color has-lg-font-size" style="line-height:2">起業家、経営者、教育者、チェンジメーカー。<br>世界中の女性たちがここでつながります。<br>共に学び、共に成長し、共に未来を創ります。</p><!-- /wp:paragraph -->
 </section>
 <!-- /wp:group -->
 

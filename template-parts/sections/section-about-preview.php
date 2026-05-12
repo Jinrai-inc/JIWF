@@ -4,7 +4,6 @@
  *
  * @package jiwf-academy
  */
-$lang = jiwf_current_lang();
 ?>
 <section class="section section--ivory">
 	<div class="container">
@@ -20,22 +19,18 @@ $lang = jiwf_current_lang();
 			</div>
 			<div class="fade-up">
 				<span class="eyebrow">About JIWF Academy</span>
-				<h2 style="margin-top: var(--space-md); margin-bottom: var(--space-md);">
-					<?php
-					echo $lang === 'ja'
-						? '新しい文明のための、<br>新しい教育'
-						: '<em>A new education<br>for a new civilization.</em>';
-					?>
+				<h2 style="margin-top: var(--space-md); margin-bottom: var(--space-md); font-family: var(--font-jp-serif); font-weight: 500;">
+					新しい文明のための、<br>新しい教育
 				</h2>
 				<p class="lead">
-					<?php
-					echo $lang === 'ja'
-						? '富士からヒマラヤへ。日本とインドを結び、東洋の智慧と現代のリーダーシップを統合する女性たちのデジタルキャンパス。'
-						: 'From Mount Fuji to the Himalayas — a digital campus that weaves Japan and India, ancient wisdom and modern leadership, into a place where women shape what comes next.';
-					?>
+					JIWF Academyは、知性・共感・勇気を備え、未来を創造する女性リーダーを育む国際的な学びの共同体です。
+				</p>
+				<p class="lead" style="margin-top: var(--space-md); color: var(--jiwf-text-muted);">
+					富士山の静謐さと、ヒマラヤの壮大な叡智。<br>
+					その宇宙の叡智と古代の智慧と現代のリーダーシップを融合し、より良い世界を創造します。
 				</p>
 				<a class="btn btn--ghost" href="<?php echo esc_url( home_url( '/about/' ) ); ?>" style="margin-top: var(--space-md);">
-					<?php esc_html_e( 'Read More', 'jiwf-academy' ); ?>
+					私たちについて
 				</a>
 			</div>
 		</div>
