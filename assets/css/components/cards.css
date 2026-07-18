@@ -74,6 +74,43 @@
 .card:hover .card__cta { color: var(--jiwf-gold); }
 .card:hover .card__cta::after { transform: translateX(4px); }
 
+/* === Full-card click target ==================================
+   When the card has a .card__link inside (typically wrapping the
+   title), stretch the anchor to cover the whole card so the entire
+   block acts as a tap target — while keeping the visible link on the
+   title for accessibility. */
+.card--linked {
+	cursor: pointer;
+}
+
+.card--linked .card__link {
+	color: inherit;
+	text-decoration: none;
+	position: static;
+}
+
+.card--linked .card__link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+.card--linked > *:not(.card__title) {
+	position: relative;
+	z-index: 0;
+}
+
+.card--linked:hover .card__title,
+.card--linked:focus-within .card__title {
+	color: var(--jiwf-gold);
+}
+
+.card--linked .card__link:focus-visible {
+	outline: 2px solid var(--jiwf-gold);
+	outline-offset: 4px;
+}
+
 .card-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
